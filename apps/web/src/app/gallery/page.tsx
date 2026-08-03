@@ -4,6 +4,8 @@ import { db } from '@card-villa/schema';
 import { CanvasRenderer } from '@/components/builder/CanvasRenderer';
 import styles from './gallery.module.css';
 
+export const dynamic = 'force-dynamic';
+
 export const metadata = {
   title: 'Design Gallery — Card Villa',
   description: 'Explore our curated digital business card template gallery.',

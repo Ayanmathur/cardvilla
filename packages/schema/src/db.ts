@@ -1,5 +1,4 @@
 import { createClient } from '@supabase/supabase-js';
-import type { User, Category, Template, FieldSchema, CardInstance, QRCode, AuditLog } from '@prisma/client';
 
 const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://arzsasdyibhccgitkmjq.supabase.co';
 const SUPABASE_SERVICE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY || 

@@ -3,6 +3,8 @@ import { notFound } from 'next/navigation';
 import { db } from '@card-villa/schema';
 import { PublicCardView } from './PublicCardView';
 
+export const dynamic = 'force-dynamic';
+
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const card = await db.cardInstances.findUnique({ slug });

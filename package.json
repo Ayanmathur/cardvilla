@@ -6,6 +6,7 @@
     "packages/*"
   ],
   "scripts": {
+    "postinstall": "npm run generate --workspace=@card-villa/schema",
     "dev": "turbo dev",
     "build": "turbo build",
     "lint": "turbo lint",
