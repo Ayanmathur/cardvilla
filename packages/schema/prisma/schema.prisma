@@ -1,0 +1,239 @@
+// Card Villa — Full Prisma Schema
+// Designed for Phase 1 (business cards) + Phase 2 (invitations)
+// "Build generic, ship narrow" — all tables exist from day one
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+// ─────────────────────────────────────────────────────────
+// User (auth)
+// ─────────────────────────────────────────────────────────
+enum UserRole {
+  admin
+  client
+}
+
+model User {
+  id            String   @id @default(cuid())
+  phone         String   @unique
+  passwordHash  String   @map("password_hash")
+  role          UserRole @default(client)
+  name          String?
+  createdAt     DateTime @default(now()) @map("created_at")
+  updatedAt     DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  templates     Template[]     @relation("CreatedTemplates")
+  cardInstances CardInstance[]
+  auditLogs     AuditLog[]
+
+  @@map("users")
+}
+
+// ─────────────────────────────────────────────────────────
+// Category (self-referencing hierarchy)
+// Phase 1: "Business Card" only
+// Phase 2: Wedding, Baby & Kids, Party, Puja/Path, Festival Wishes
+// ─────────────────────────────────────────────────────────
+model Category {
+  id        String   @id @default(cuid())
+  name      String
+  slug      String   @unique
+  parentId  String?  @map("parent_id")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  // Self-referencing
+  parent    Category?  @relation("CategoryHierarchy", fields: [parentId], references: [id])
+  children  Category[] @relation("CategoryHierarchy")
+
+  // Relations
+  templates Template[]
+
+  @@map("categories")
+}
+
+// ─────────────────────────────────────────────────────────
+// Tag (multi-axis taxonomy)
+// Phase 1: table exists, unused
+// Phase 2: format, design, style, religion, occasion tags
+// ─────────────────────────────────────────────────────────
+enum TagType {
+  format
+  design
+  style
+  religion
+  occasion
+}
+
+model Tag {
+  id        String   @id @default(cuid())
+  name      String
+  slug      String   @unique
+  type      TagType
+  createdAt DateTime @default(now()) @map("created_at")
+
+  // Relations
+  templates TemplateTag[]
+
+  @@map("tags")
+}
+
+// ─────────────────────────────────────────────────────────
+// Template (canvas-based card/invitation design)
+// ─────────────────────────────────────────────────────────
+enum TemplateStatus {
+  draft
+  published
+}
+
+model Template {
+  id           String         @id @default(cuid())
+  name         String
+  categoryId   String         @map("category_id")
+  thumbnailUrl String?        @map("thumbnail_url")
+  canvasJson   Json           @map("canvas_json")
+  status       TemplateStatus @default(draft)
+  createdById  String         @map("created_by")
+  createdAt    DateTime       @default(now()) @map("created_at")
+  updatedAt    DateTime       @updatedAt @map("updated_at")
+
+  // Relations
+  category      Category       @relation(fields: [categoryId], references: [id])
+  createdBy     User           @relation("CreatedTemplates", fields: [createdById], references: [id])
+  fieldSchemas  FieldSchema[]
+  tags          TemplateTag[]
+  cardInstances CardInstance[]
+
+  @@map("templates")
+}
+
+// ─────────────────────────────────────────────────────────
+// TemplateTag (join table)
+// ─────────────────────────────────────────────────────────
+model TemplateTag {
+  templateId String @map("template_id")
+  tagId      String @map("tag_id")
+
+  template   Template @relation(fields: [templateId], references: [id], onDelete: Cascade)
+  tag        Tag      @relation(fields: [tagId], references: [id], onDelete: Cascade)
+
+  @@id([templateId, tagId])
+  @@map("template_tags")
+}
+
+// ─────────────────────────────────────────────────────────
+// FieldSchema (defines editable fields per template)
+//
+// field_type values:
+//   text      — plain text (name, title, company, tagline, specialization, etc.)
+//   image     — uploaded image
+//   logo      — business logo (special rendering)
+//   phone     — clickable phone number (tap-to-call)
+//   whatsapp  — WhatsApp chat link
+//   address   — tappable Google Maps link
+//   url       — generic clickable link (catalog, appointment, review, website)
+//   social    — social media links (JSON: { platform, url } pairs)
+//   date      — date/datetime (Phase 2: event dates, RSVP deadlines)
+// ─────────────────────────────────────────────────────────
+enum FieldType {
+  text
+  image
+  date
+  address
+  logo
+  phone
+  whatsapp
+  url
+  social
+}
+
+enum EditableBy {
+  admin_only
+  client
+}
+
+model FieldSchema {
+  id         String     @id @default(cuid())
+  templateId String     @map("template_id")
+  fieldKey   String     @map("field_key")
+  fieldType  FieldType  @map("field_type")
+  editableBy EditableBy @default(client) @map("editable_by")
+  required   Boolean    @default(false)
+  label      String?
+  sortOrder  Int        @default(0) @map("sort_order")
+  createdAt  DateTime   @default(now()) @map("created_at")
+
+  // Relations
+  template   Template   @relation(fields: [templateId], references: [id], onDelete: Cascade)
+
+  @@unique([templateId, fieldKey])
+  @@map("field_schemas")
+}
+
+// ─────────────────────────────────────────────────────────
+// CardInstance (a client's actual card, cloned from a template)
+// ─────────────────────────────────────────────────────────
+enum CardStatus {
+  active
+  archived
+}
+
+model CardInstance {
+  id          String     @id @default(cuid())
+  templateId  String     @map("template_id")
+  ownerUserId String     @map("owner_user_id")
+  slug        String     @unique
+  status      CardStatus @default(active)
+  data        Json       @default("{}")
+  createdAt   DateTime   @default(now()) @map("created_at")
+  updatedAt   DateTime   @updatedAt @map("updated_at")
+
+  // Relations
+  template    Template   @relation(fields: [templateId], references: [id])
+  owner       User       @relation(fields: [ownerUserId], references: [id])
+  qrCode      QRCode?
+  auditLogs   AuditLog[]
+
+  @@map("card_instances")
+}
+
+// ─────────────────────────────────────────────────────────
+// QRCode
+// ─────────────────────────────────────────────────────────
+model QRCode {
+  id             String   @id @default(cuid())
+  cardInstanceId String   @unique @map("card_instance_id")
+  targetUrl      String   @map("target_url")
+  createdAt      DateTime @default(now()) @map("created_at")
+
+  // Relations
+  cardInstance   CardInstance @relation(fields: [cardInstanceId], references: [id], onDelete: Cascade)
+
+  @@map("qr_codes")
+}
+
+// ─────────────────────────────────────────────────────────
+// AuditLog (field-level change tracking)
+// ─────────────────────────────────────────────────────────
+model AuditLog {
+  id             String   @id @default(cuid())
+  cardInstanceId String   @map("card_instance_id")
+  changedById    String   @map("changed_by")
+  fieldKey       String   @map("field_key")
+  oldValue       String?  @map("old_value")
+  newValue       String?  @map("new_value")
+  timestamp      DateTime @default(now())
+
+  // Relations
+  cardInstance   CardInstance @relation(fields: [cardInstanceId], references: [id], onDelete: Cascade)
+  changedBy      User        @relation(fields: [changedById], references: [id])
+
+  @@map("audit_logs")
+}

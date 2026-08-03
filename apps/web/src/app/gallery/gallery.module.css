@@ -1,0 +1,111 @@
+.container {
+  min-height: 85vh;
+  background: var(--color-bg, #0d0f1a);
+  color: var(--color-text, #f8fafc);
+  padding: 3rem 2rem 5rem 2rem;
+}
+
+.header {
+  max-width: 1200px;
+  margin: 0 auto 3rem auto;
+  text-align: center;
+}
+
+.kicker {
+  color: var(--color-accent, #c9a84c);
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.title {
+  font-family: var(--font-primary, Outfit);
+  font-size: 2.5rem;
+  font-weight: 800;
+  margin: 0.5rem 0;
+  background: linear-gradient(135deg, #ffffff 0%, var(--color-text-muted, #8b8fa3) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.subtitle {
+  color: var(--color-text-muted, #8b8fa3);
+  max-width: 600px;
+  margin: 0 auto;
+  font-size: 1rem;
+}
+
+.main {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.cardLink {
+  text-decoration: none;
+  color: inherit;
+}
+
+.card {
+  background: rgba(20, 23, 42, 0.6);
+  border: 1px solid var(--color-border, rgba(201, 168, 76, 0.2));
+  border-radius: var(--radius-xl, 16px);
+  overflow: hidden;
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.card:hover {
+  transform: translateY(-6px);
+  border-color: var(--color-accent, #c9a84c);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.5), 0 0 20px rgba(201, 168, 76, 0.15);
+}
+
+.previewContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #06070c;
+  padding: 1.5rem;
+  height: 330px;
+  overflow: hidden;
+}
+
+.cardMeta {
+  padding: 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(15, 17, 30, 0.9);
+}
+
+.templateName {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #f8fafc;
+  margin: 0;
+}
+
+.badge {
+  font-size: 0.75rem;
+  background: rgba(201, 168, 76, 0.15);
+  color: var(--color-accent-light, #e5c158);
+  padding: 0.2rem 0.6rem;
+  border-radius: 12px;
+  font-weight: 600;
+}
+
+.emptyState {
+  text-align: center;
+  padding: 5rem 2rem;
+  background: rgba(20, 23, 42, 0.4);
+  border-radius: 16px;
+  border: 1px dashed rgba(201, 168, 76, 0.3);
+}

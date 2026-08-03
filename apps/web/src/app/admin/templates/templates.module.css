@@ -1,0 +1,211 @@
+.container {
+  min-height: 100vh;
+  background: var(--color-bg, #0d0f1a);
+  color: var(--color-text, #f8fafc);
+  padding: 2rem 3rem;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--color-border, rgba(201, 168, 76, 0.2));
+}
+
+.title {
+  font-family: var(--font-primary, Outfit);
+  font-size: 2.2rem;
+  color: var(--color-accent, #c9a84c);
+  margin-bottom: 0.25rem;
+}
+
+.subtitle {
+  color: var(--color-text-muted, #8b8fa3);
+  font-size: 0.95rem;
+}
+
+.headerActions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.createBtn {
+  background: linear-gradient(135deg, var(--color-accent, #c9a84c) 0%, #b3923d 100%);
+  color: #0d0f1a;
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--radius-md, 8px);
+  font-weight: 700;
+  text-decoration: none;
+  transition: transform 0.2s ease;
+}
+
+.createBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(201, 168, 76, 0.4);
+}
+
+.backBtn {
+  background: transparent;
+  color: var(--color-text-muted, #8b8fa3);
+  border: 1px solid var(--color-border, rgba(255, 255, 255, 0.15));
+  padding: 0.75rem 1.25rem;
+  border-radius: var(--radius-md, 8px);
+  text-decoration: none;
+}
+
+.filterBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(20, 23, 42, 0.6);
+  padding: 1rem 1.5rem;
+  border-radius: var(--radius-lg, 12px);
+  border: 1px solid var(--color-border, rgba(201, 168, 76, 0.15));
+  margin-bottom: 2rem;
+}
+
+.filterGroup {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.selectFilter {
+  background: rgba(13, 15, 26, 0.8);
+  border: 1px solid var(--color-border, rgba(201, 168, 76, 0.3));
+  border-radius: 6px;
+  color: #f8fafc;
+  padding: 0.4rem 0.875rem;
+}
+
+.countBadge {
+  color: var(--color-text-muted, #8b8fa3);
+  font-size: 0.9rem;
+}
+
+.templateGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 2rem;
+}
+
+.templateCard {
+  background: rgba(20, 23, 42, 0.7);
+  border: 1px solid var(--color-border, rgba(201, 168, 76, 0.2));
+  border-radius: var(--radius-xl, 16px);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.templateCard:hover {
+  transform: translateY(-4px);
+  border-color: var(--color-accent, #c9a84c);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.5);
+}
+
+.previewBox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #06070c;
+  padding: 1.5rem;
+  height: 330px;
+  overflow: hidden;
+}
+
+.cardDetails {
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.templateName {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #f8fafc;
+  margin: 0;
+}
+
+.statusBadge {
+  border-radius: 20px;
+  padding: 0.25rem 0.65rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+}
+
+.published {
+  background: rgba(34, 197, 94, 0.2);
+  color: #4ade80;
+  border: 1px solid #22c55e;
+}
+
+.draft {
+  background: rgba(234, 179, 8, 0.2);
+  color: #fde047;
+  border: 1px solid #eab308;
+}
+
+.categoryName {
+  font-size: 0.85rem;
+  color: var(--color-text-muted, #8b8fa3);
+  margin: 0;
+}
+
+.categoryName span {
+  color: var(--color-accent, #c9a84c);
+}
+
+.cardFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 0.5rem;
+}
+
+.editBtn {
+  background: rgba(201, 168, 76, 0.15);
+  color: var(--color-accent-light, #e5c158);
+  padding: 0.45rem 0.85rem;
+  border-radius: 6px;
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.deleteBtn {
+  background: rgba(239, 68, 68, 0.1);
+  color: #f87171;
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  border-radius: 6px;
+  padding: 0.45rem 0.85rem;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.emptyState {
+  text-align: center;
+  padding: 5rem 2rem;
+  background: rgba(20, 23, 42, 0.4);
+  border-radius: 16px;
+  border: 1px dashed rgba(201, 168, 76, 0.3);
+}
+
+.loading {
+  text-align: center;
+  padding: 4rem;
+  color: var(--color-accent, #c9a84c);
+}

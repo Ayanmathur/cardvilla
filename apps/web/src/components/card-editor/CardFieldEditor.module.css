@@ -1,0 +1,230 @@
+.container {
+  min-height: 100vh;
+  background: var(--color-bg, #0d0f1a);
+  color: var(--color-text, #f8fafc);
+  display: flex;
+  flex-direction: column;
+}
+
+.topHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 2rem;
+  background: rgba(20, 23, 42, 0.9);
+  border-bottom: 1px solid var(--color-border, rgba(201, 168, 76, 0.2));
+  gap: 1rem;
+}
+
+.title {
+  font-family: var(--font-primary, Outfit);
+  font-size: 1.6rem;
+  color: var(--color-accent, #c9a84c);
+  margin: 0;
+}
+
+.subtitle {
+  color: var(--color-text-muted, #8b8fa3);
+  font-size: 0.85rem;
+  margin: 0.25rem 0 0 0;
+}
+
+.slugCode {
+  background: rgba(201, 168, 76, 0.15);
+  color: var(--color-accent-light, #e5c158);
+  padding: 0.15rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.85rem;
+}
+
+.headerActions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.viewLiveBtn {
+  background: rgba(255, 255, 255, 0.08);
+  color: #f8fafc;
+  padding: 0.6rem 1.1rem;
+  border-radius: var(--radius-md, 8px);
+  text-decoration: none;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.saveBtn {
+  background: linear-gradient(135deg, var(--color-accent, #c9a84c) 0%, #b3923d 100%);
+  color: #0d0f1a;
+  border: none;
+  border-radius: var(--radius-md, 8px);
+  padding: 0.65rem 1.35rem;
+  font-weight: 700;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.tabSwitcher {
+  display: none;
+  background: rgba(20, 23, 42, 0.8);
+  padding: 0.5rem;
+  gap: 0.5rem;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.tabBtn {
+  flex: 1;
+  padding: 0.6rem;
+  background: transparent;
+  border: none;
+  color: var(--color-text-muted);
+  border-radius: 6px;
+  font-weight: 600;
+}
+
+.activeTab {
+  background: var(--color-accent, #c9a84c);
+  color: #0d0f1a;
+}
+
+.editorBody {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  flex: 1;
+  overflow: hidden;
+}
+
+@media (max-width: 900px) {
+  .tabSwitcher {
+    display: flex;
+  }
+  .editorBody {
+    grid-template-columns: 1fr;
+  }
+  .formPanel, .previewPanel {
+    display: none;
+  }
+  .showPanel {
+    display: flex !important;
+  }
+}
+
+.formPanel {
+  padding: 2rem;
+  overflow-y: auto;
+  border-right: 1px solid var(--color-border, rgba(201, 168, 76, 0.15));
+}
+
+.sectionHeading {
+  font-size: 1.1rem;
+  color: var(--color-accent, #c9a84c);
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px dashed rgba(201, 168, 76, 0.3);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  max-width: 540px;
+}
+
+.fieldGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #e2e8f0;
+}
+
+.required {
+  color: #ef4444;
+}
+
+.adminOnlyBadge {
+  margin-left: 0.5rem;
+  font-size: 0.7rem;
+  background: rgba(239, 68, 68, 0.2);
+  color: #f87171;
+  padding: 0.1rem 0.4rem;
+  border-radius: 4px;
+}
+
+.input, .textarea {
+  width: 100%;
+  padding: 0.75rem 0.9rem;
+  background: rgba(13, 15, 26, 0.8);
+  border: 1px solid var(--color-border, rgba(201, 168, 76, 0.2));
+  border-radius: var(--radius-md, 8px);
+  color: #f8fafc;
+  font-family: inherit;
+  font-size: 0.95rem;
+}
+
+.input:focus, .textarea:focus {
+  outline: none;
+  border-color: var(--color-accent, #c9a84c);
+  box-shadow: 0 0 0 3px rgba(201, 168, 76, 0.15);
+}
+
+.imageInputBox {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.thumbPreview img {
+  width: 44px;
+  height: 44px;
+  border-radius: 8px;
+  object-fit: cover;
+  border: 1px solid var(--color-accent);
+}
+
+.saveFormBtn {
+  margin-top: 1rem;
+  padding: 0.85rem;
+  background: linear-gradient(135deg, var(--color-accent, #c9a84c) 0%, #b3923d 100%);
+  color: #0d0f1a;
+  font-size: 1rem;
+  font-weight: 700;
+  border: none;
+  border-radius: var(--radius-md, 8px);
+  cursor: pointer;
+}
+
+.previewPanel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at center, #171b30 0%, #090a12 100%);
+  padding: 2rem;
+  overflow: auto;
+}
+
+.previewCardBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.previewHeading {
+  font-size: 0.85rem;
+  color: var(--color-accent, #c9a84c);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 700;
+}
+
+.noFields {
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+}

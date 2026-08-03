@@ -1,0 +1,315 @@
+.builderLayout {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background: var(--color-bg, #0d0f1a);
+  color: var(--color-text, #f8fafc);
+  overflow: hidden;
+}
+
+.topBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1.5rem;
+  background: rgba(20, 23, 42, 0.9);
+  border-bottom: 1px solid var(--color-border, rgba(201, 168, 76, 0.2));
+  gap: 1rem;
+  z-index: 10;
+}
+
+.titleArea {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.nameInput {
+  background: rgba(13, 15, 26, 0.8);
+  border: 1px solid var(--color-border, rgba(201, 168, 76, 0.3));
+  border-radius: var(--radius-md, 8px);
+  color: var(--color-accent, #c9a84c);
+  font-size: 1.1rem;
+  font-weight: 700;
+  padding: 0.5rem 0.875rem;
+  min-width: 260px;
+}
+
+.categoryBadge {
+  font-size: 0.875rem;
+  color: var(--color-text-muted, #8b8fa3);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.selectCategory {
+  background: rgba(13, 15, 26, 0.8);
+  border: 1px solid var(--color-border, rgba(201, 168, 76, 0.3));
+  border-radius: 6px;
+  color: var(--color-text, #f8fafc);
+  padding: 0.25rem 0.5rem;
+}
+
+.presetArea {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.presetLabel {
+  font-size: 0.8rem;
+  color: var(--color-text-muted, #8b8fa3);
+}
+
+.presetBtn {
+  background: rgba(201, 168, 76, 0.12);
+  border: 1px solid rgba(201, 168, 76, 0.3);
+  border-radius: 6px;
+  color: var(--color-accent-light, #e5c158);
+  font-size: 0.8rem;
+  padding: 0.35rem 0.65rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.presetBtn:hover {
+  background: var(--color-accent, #c9a84c);
+  color: #0d0f1a;
+}
+
+.actionsArea {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.statusBtn {
+  padding: 0.4rem 0.875rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+}
+
+.published {
+  background: rgba(34, 197, 94, 0.2);
+  color: #4ade80;
+  border: 1px solid #22c55e;
+}
+
+.draft {
+  background: rgba(234, 179, 8, 0.2);
+  color: #fde047;
+  border: 1px solid #eab308;
+}
+
+.saveBtn {
+  background: linear-gradient(135deg, var(--color-accent, #c9a84c) 0%, #b3923d 100%);
+  color: #0d0f1a;
+  border: none;
+  border-radius: var(--radius-md, 8px);
+  padding: 0.55rem 1.25rem;
+  font-weight: 700;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+
+.saveBtn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(201, 168, 76, 0.4);
+}
+
+.workspace {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+.leftPanel {
+  width: 250px;
+  background: rgba(18, 21, 38, 0.95);
+  border-right: 1px solid var(--color-border, rgba(201, 168, 76, 0.15));
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  overflow-y: auto;
+}
+
+.panelHeading {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-accent, #c9a84c);
+  margin-top: 0.5rem;
+  margin-bottom: 0.25rem;
+}
+
+.addBtn {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  color: #e2e8f0;
+  padding: 0.6rem 0.85rem;
+  font-size: 0.85rem;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.addBtn:hover {
+  background: rgba(201, 168, 76, 0.15);
+  border-color: var(--color-accent, #c9a84c);
+  color: var(--color-accent-light, #e5c158);
+}
+
+.divider {
+  border: none;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  margin: 0.5rem 0;
+}
+
+.bgGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+}
+
+.bgBtn {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  color: #cbd5e1;
+  padding: 0.4rem;
+  font-size: 0.75rem;
+  cursor: pointer;
+}
+
+.bgBtn:hover {
+  border-color: var(--color-accent, #c9a84c);
+  color: var(--color-accent, #c9a84c);
+}
+
+.canvasCenter {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at center, #171b30 0%, #090a12 100%);
+  position: relative;
+  overflow: auto;
+  padding: 2rem;
+}
+
+.zoomControls {
+  position: absolute;
+  top: 1rem;
+  right: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(0, 0, 0, 0.6);
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+}
+
+.rightPanel {
+  width: 320px;
+  background: rgba(18, 21, 38, 0.95);
+  border-left: 1px solid var(--color-border, rgba(201, 168, 76, 0.15));
+  padding: 1.25rem;
+  overflow-y: auto;
+}
+
+.noSelection {
+  color: var(--color-text-muted, #8b8fa3);
+  font-size: 0.9rem;
+  text-align: center;
+  margin-top: 4rem;
+  line-height: 1.6;
+}
+
+.inspector {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.inspectorHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 0.75rem;
+}
+
+.deleteBtn {
+  background: rgba(239, 68, 68, 0.15);
+  color: #f87171;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  border-radius: 6px;
+  padding: 0.35rem 0.65rem;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+
+.propGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.fieldBindingBox {
+  background: rgba(201, 168, 76, 0.06);
+  border: 1px dashed rgba(201, 168, 76, 0.3);
+  padding: 1rem;
+  border-radius: 10px;
+}
+
+.fieldBindingTitle {
+  color: var(--color-accent, #c9a84c);
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+.fieldBindingDesc {
+  font-size: 0.75rem;
+  color: #94a3b8;
+  margin: 0.25rem 0 0.5rem 0;
+}
+
+.label {
+  font-size: 0.8rem;
+  color: #cbd5e1;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.textInput, .selectInput {
+  width: 100%;
+  padding: 0.5rem;
+  background: rgba(13, 15, 26, 0.8);
+  border: 1px solid var(--color-border, rgba(255, 255, 255, 0.15));
+  border-radius: 6px;
+  color: #f8fafc;
+  font-size: 0.85rem;
+}
+
+.numInput {
+  width: 60px;
+  padding: 0.4rem;
+  background: rgba(13, 15, 26, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 6px;
+  color: #f8fafc;
+  font-size: 0.85rem;
+}

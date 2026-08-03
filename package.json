@@ -1,0 +1,31 @@
+{
+  "name": "card-villa",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "turbo dev",
+    "build": "turbo build",
+    "lint": "turbo lint",
+    "db:generate": "npm run generate --workspace=@card-villa/schema",
+    "db:migrate": "npm run migrate --workspace=@card-villa/schema",
+    "db:seed": "npm run seed --workspace=@card-villa/schema",
+    "db:studio": "npm run studio --workspace=@card-villa/schema"
+  },
+  "devDependencies": {
+    "turbo": "^2.5.0"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "packageManager": "npm@11.16.0",
+  "allowScripts": {
+    "@prisma/client@6.19.3": true,
+    "@prisma/engines@6.19.3": true,
+    "esbuild@0.28.1": true,
+    "prisma@6.19.3": true,
+    "sharp@0.34.5": true
+  }
+}
