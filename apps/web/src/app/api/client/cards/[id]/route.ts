@@ -15,7 +15,15 @@ export async function GET(
       return NextResponse.json({ error: 'Card instance not found' }, { status: 404 });
     }
 
-    return NextResponse.json({ card });
+    const { sanitizeHtml } = await import('@/lib/validation');
+    const sanitizedData: Record<string, any> = {};
+    if (card.data) {
+      for (const [key, value] of Object.entries(card.data)) {
+        sanitizedData[key] = typeof value === 'string' ? sanitizeHtml(value) : value;
+      }
+    }
+
+    return NextResponse.json({ card: { ...card, data: sanitizedData } });
   } catch (error: any) {
     if (error.message === 'UNAUTHORIZED') {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
@@ -40,30 +48,51 @@ export async function PUT(
     }
 
     const template = existing.template;
-    const allowedClientKeys = new Set(
-      (template?.fieldSchemas || [])
-        .filter((fs: any) => fs.editableBy === 'client')
-        .map((fs: any) => fs.fieldKey)
-    );
+    // Support both legacy fieldSchemas and new configSchema
+    const configFields: any[] = template?.configSchema || [];
+    const legacyFields: any[] = template?.fieldSchemas || [];
+    
+    // Build allowed keys from both sources
+    const clientConfigFields = configFields.filter((f: any) => f.editableBy === 'client');
+    const clientLegacyFields = legacyFields.filter((fs: any) => fs.editableBy === 'client');
+    
+    const allowedClientKeys = new Set([
+      ...clientConfigFields.map((f: any) => f.key),
+      ...clientLegacyFields.map((fs: any) => fs.fieldKey),
+    ]);
+    const fieldTypeMap = new Map<string, string>([
+      ...clientConfigFields.map((f: any) => [f.key, f.type] as [string, string]),
+      ...clientLegacyFields.map((fs: any) => [fs.fieldKey, fs.fieldType] as [string, string]),
+    ]);
 
     // Merge data, protecting any admin_only fields from client modification
     const oldData = existing.data || {};
     const sanitizedData: Record<string, any> = { ...oldData };
 
     if (data) {
+      const { validateFieldValue, sanitizeHtml } = await import('@/lib/validation');
       for (const key of Object.keys(data)) {
         if (allowedClientKeys.has(key)) {
-          if (oldData[key] !== data[key]) {
+          const fieldType: string = fieldTypeMap.get(key) || 'text';
+          const valueToSet = data[key];
+          
+          if (!validateFieldValue(valueToSet, fieldType)) {
+             return NextResponse.json({ error: `Invalid value for field ${key} of type ${fieldType}` }, { status: 400 });
+          }
+          
+          const sanitizedValue = typeof valueToSet === 'string' ? sanitizeHtml(valueToSet) : valueToSet;
+          
+          if (oldData[key] !== sanitizedValue) {
             // Write AuditLog for traceability
             await db.auditLogs.create({
               cardInstanceId: id,
               changedById: user.userId,
               fieldKey: key,
               oldValue: String(oldData[key] || ''),
-              newValue: String(data[key] || ''),
+              newValue: String(sanitizedValue || ''),
             });
           }
-          sanitizedData[key] = data[key];
+          sanitizedData[key] = sanitizedValue;
         }
       }
     }

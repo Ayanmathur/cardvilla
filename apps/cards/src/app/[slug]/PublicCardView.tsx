@@ -107,16 +107,19 @@ export const PublicCardView: React.FC<PublicCardViewProps> = ({ card }) => {
           )}
         </div>
 
-        {/* Powered By Footer */}
+        {/* Referral Footer — Section 14.2 */}
         <footer className={styles.cardFooter}>
           <a
-            href="https://cardvilla.com"
+            href="https://cardvilla.com/gallery"
             target="_blank"
             rel="noopener noreferrer"
             className={styles.brandLink}
           >
-            Powered by <strong>Card Villa</strong>
+            Want a card like this? <strong>Get yours →</strong>
           </a>
+          <span className={styles.poweredBy}>
+            Powered by <strong>Card Villa</strong>
+          </span>
         </footer>
       </div>
     </div>

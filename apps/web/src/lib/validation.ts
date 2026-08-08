@@ -1,33 +1,46 @@
-// Card Villa Input Validation and XSS Sanitization Helpers
-
-export function validatePhone(phone: string): boolean {
-  if (!phone) return false;
-  // Allows digits, optional leading +, spaces, dashes, parentheses, 7 to 15 chars
-  const phoneRegex = /^\+?[0-9\s\-()]{7,15}$/;
-  return phoneRegex.test(phone.trim());
+export function isValidPhone(phone: string): boolean {
+  // 10-digit Indian mobile numbers (starts with 6-9)
+  return /^[6-9]\d{9}$/.test(phone);
 }
 
-export function validateEmail(email: string): boolean {
-  if (!email) return true; // Optional fields can be empty
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  return emailRegex.test(email.trim());
+export function isValidEmail(email: string): boolean {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
 
-export function validateUrl(urlStr: string): boolean {
-  if (!urlStr) return true;
-  try {
-    const parsed = new URL(urlStr.startsWith('http') ? urlStr : `https://${urlStr}`);
-    return parsed.protocol === 'http:' || parsed.protocol === 'https:';
-  } catch {
-    return false;
+export function sanitizeHtml(input: string): string {
+  if (typeof input !== 'string') return input;
+  // Basic HTML tag stripping
+  return input.replace(/<\/?[^>]+(>|$)/g, "");
+}
+
+export function validateFieldValue(value: any, fieldType: string): boolean {
+  if (value === null || value === undefined) return false;
+  
+  switch (fieldType) {
+    case 'text':
+    case 'textarea':
+    case 'url':
+    case 'email':
+    case 'phone':
+    case 'image':
+      return typeof value === 'string';
+    case 'number':
+      return typeof value === 'number' && !isNaN(value);
+    case 'boolean':
+      return typeof value === 'boolean';
+    case 'date':
+      return !isNaN(Date.parse(value));
+    case 'json':
+      try {
+        if (typeof value === 'object') return true;
+        JSON.parse(value);
+        return true;
+      } catch {
+        return false;
+      }
+    case 'color':
+      return typeof value === 'string' && /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/.test(value);
+    default:
+      return true; // Unknown type, let it pass
   }
-}
-
-// Strip HTML tags and script injection from user text inputs
-export function sanitizeText(text: string | null | undefined): string {
-  if (!text) return '';
-  return String(text)
-    .replace(/<script\b[^<]*>([\s\S]*?)<\/script>/gi, '')
-    .replace(/<[^>]+>/g, '')
-    .trim();
 }

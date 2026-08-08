@@ -1,14 +1,23 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { requireAuth } from '@/lib/auth';
+import { rateLimit } from '@/lib/rate-limit';
 import fs from 'fs/promises';
 import path from 'path';
 
 const ALLOWED_TYPES = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
 const MAX_SIZE_BYTES = 5 * 1024 * 1024; // 5MB
 
+const limiter = rateLimit({ interval: 60000, uniqueTokenPerInterval: 500 });
+
 export async function POST(request: NextRequest) {
   try {
-    await requireAuth();
+    const user = await requireAuth();
+    
+    try {
+      await limiter.check(10, user.userId); // 10 uploads per minute per user
+    } catch {
+      return NextResponse.json({ error: 'Upload rate limit exceeded. Try again in a minute.' }, { status: 429 });
+    }
 
     const formData = await request.formData();
     const file = formData.get('file') as File | null;

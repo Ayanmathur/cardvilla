@@ -1,13 +1,17 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@card-villa/schema';
 import { verifyPassword, createToken } from '@/lib/auth';
-import { checkRateLimit } from '@/lib/rateLimit';
+import { rateLimit } from '@/lib/rate-limit';
+import { isValidPhone } from '@/lib/validation';
+
+const limiter = rateLimit({ interval: 60000, uniqueTokenPerInterval: 500 });
 
 export async function POST(request: NextRequest) {
   try {
     const ip = request.headers.get('x-forwarded-for') || '127.0.0.1';
-    const rateLimit = checkRateLimit(ip, 10, 60000); // 10 attempts per minute
-    if (!rateLimit.allowed) {
+    try {
+      await limiter.check(5, ip); // 5 attempts per minute per IP
+    } catch {
       return NextResponse.json(
         { error: 'Too many login attempts. Please wait 1 minute.' },
         { status: 429 }
@@ -20,6 +24,20 @@ export async function POST(request: NextRequest) {
     if (!phone || !password) {
       return NextResponse.json(
         { error: 'Phone and password are required' },
+        { status: 400 }
+      );
+    }
+
+    if (!isValidPhone(phone)) {
+      return NextResponse.json(
+        { error: 'Invalid phone format' },
+        { status: 400 }
+      );
+    }
+
+    if (password.length < 6) {
+      return NextResponse.json(
+        { error: 'Password must be at least 6 characters' },
         { status: 400 }
       );
     }
