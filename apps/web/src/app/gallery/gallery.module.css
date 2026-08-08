@@ -109,3 +109,14 @@
   border-radius: 16px;
   border: 1px dashed rgba(201, 168, 76, 0.3);
 }
+
+.previewIframe {
+  width: 375px;
+  height: 320px;
+  border: none;
+  border-radius: 8px;
+  transform: scale(0.8);
+  transform-origin: top center;
+  pointer-events: none;
+  overflow: hidden;
+}

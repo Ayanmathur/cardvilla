@@ -26,9 +26,12 @@ export default async function PublicCardPage({
   const { slug } = await params;
   const card = await db.cardInstances.findUnique({ slug });
 
-  if (!card || card.status !== 'active' || !card.template) {
+  if (!card || card.status !== 'active') {
     notFound();
   }
 
-  return <PublicCardView card={card as any} />;
+  return <PublicCardView card={{
+    ...card,
+    component_key: card.template?.componentKey || null,
+  } as any} />;
 }

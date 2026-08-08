@@ -23,17 +23,24 @@ export async function POST(request: NextRequest) {
   try {
     const admin = await requireAdmin();
     const body = await request.json();
-    const { name, categoryId, thumbnailUrl, canvasJson, status, fieldSchemas } = body;
+    const { name, categoryId, thumbnailUrl, canvasJson, componentKey, configSchema, status, fieldSchemas } = body;
 
-    if (!name || !categoryId || !canvasJson) {
-      return NextResponse.json({ error: 'Name, categoryId, and canvasJson are required' }, { status: 400 });
+    if (!name || !categoryId) {
+      return NextResponse.json({ error: 'Name and categoryId are required' }, { status: 400 });
+    }
+
+    // Must have either componentKey (new) or canvasJson (legacy)
+    if (!componentKey && !canvasJson) {
+      return NextResponse.json({ error: 'Either componentKey or canvasJson is required' }, { status: 400 });
     }
 
     const template = await db.templates.create({
       name,
       categoryId,
       thumbnailUrl,
-      canvasJson,
+      canvasJson: canvasJson || null,
+      componentKey: componentKey || null,
+      configSchema: configSchema || [],
       status: status || 'draft',
       createdById: admin.userId,
       fieldSchemas: fieldSchemas || [],

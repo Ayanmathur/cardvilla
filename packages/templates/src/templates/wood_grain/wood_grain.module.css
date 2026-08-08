@@ -1,0 +1,277 @@
+/* wood_grain.module.css */
+
+.container {
+  --cv-bg-color: #2a1b10;
+  --cv-card-bg: #b89773;
+  --cv-text-engraved: #362211;
+  --cv-text-secondary: #593c23;
+  --cv-accent-bark: #241409;
+  --cv-gold-amber: #d4af37;
+  --cv-highlight: rgba(255, 245, 225, 0.4);
+  --cv-shadow-dark: rgba(0, 0, 0, 0.6);
+
+  font-family: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background-color: var(--cv-bg-color);
+  background-image: 
+    radial-gradient(ellipse at center, rgba(60, 36, 18, 0.6) 0%, rgba(20, 10, 5, 0.95) 100%),
+    repeating-linear-gradient(90deg, rgba(0, 0, 0, 0.05) 0px, rgba(0, 0, 0, 0.05) 1px, transparent 1px, transparent 4px);
+  color: var(--cv-text-engraved);
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  box-sizing: border-box;
+  padding: 24px 16px;
+}
+
+/* Wood Grain Plaque Card */
+.cardWrapper {
+  position: relative;
+  max-width: 400px;
+  width: 100%;
+  border-radius: 16px;
+  padding: 36px 28px;
+  box-sizing: border-box;
+  box-shadow: 
+    0 20px 45px rgba(0, 0, 0, 0.7), 
+    inset 0 1px 1px rgba(255, 255, 255, 0.4),
+    inset 0 -2px 6px rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  overflow: hidden;
+
+  /* Natural Oak Wood Grain Pattern via Pure CSS Gradients */
+  background: 
+    radial-gradient(ellipse at 50% 20%, rgba(255, 240, 210, 0.15) 0%, transparent 70%),
+    repeating-linear-gradient(
+      172deg,
+      #c4a482 0px,
+      #b39270 3px,
+      #caa986 7px,
+      #a68563 12px,
+      #bc9b78 18px,
+      #9e7d5b 25px,
+      #cbb092 32px
+    );
+  border: 4px solid #4a321d;
+}
+
+/* Beveled Edge Frame Effect */
+.woodBevel {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  right: 8px;
+  bottom: 8px;
+  border: 2px stroke #6e4e32;
+  border-radius: 10px;
+  box-shadow: inset 1px 1px 2px rgba(255, 255, 255, 0.3), inset -1px -1px 2px rgba(0, 0, 0, 0.4);
+  pointer-events: none;
+}
+
+/* Decorative Wood Corner Screw / Grommet Details */
+.grommetTL, .grommetTR, .grommetBL, .grommetBR {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #888, #222);
+  box-shadow: inset 0 1px 1px rgba(255,255,255,0.6), 0 2px 4px rgba(0,0,0,0.5);
+}
+
+.grommetTL { top: 14px; left: 14px; }
+.grommetTR { top: 14px; right: 14px; }
+.grommetBL { bottom: 14px; left: 14px; }
+.grommetBR { bottom: 14px; right: 14px; }
+
+.grommetTL::after, .grommetTR::after, .grommetBL::after, .grommetBR::after {
+  content: '';
+  position: absolute;
+  top: 5px;
+  left: 2px;
+  width: 8px;
+  height: 2px;
+  background-color: #111;
+  transform: rotate(45deg);
+}
+
+/* Header & Engraved Brand */
+.headerZone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 12px;
+  position: relative;
+  z-index: 1;
+}
+
+.logo {
+  max-width: 76px;
+  max-height: 76px;
+  object-fit: contain;
+  border-radius: 50%;
+  border: 2px solid #593c23;
+  padding: 4px;
+  background-color: rgba(255, 255, 255, 0.2);
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.4);
+}
+
+/* Laser Engraved Text Effect */
+.engravedTitle {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--cv-text-engraved);
+  text-shadow: 
+    -1px -1px 1px rgba(0, 0, 0, 0.7),
+    1px 1px 0px rgba(255, 255, 255, 0.4);
+  margin: 0;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.fullName {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: #2b180a;
+  text-shadow: 
+    -1px -1px 2px rgba(0, 0, 0, 0.75),
+    1px 1px 1px rgba(255, 255, 255, 0.45);
+  margin: 0;
+  line-height: 1.15;
+}
+
+.craftTitle {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--cv-text-secondary);
+  text-shadow: 0 1px 0px rgba(255, 255, 255, 0.3);
+  margin: 0;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.engravedLine {
+  width: 100%;
+  height: 2px;
+  background-color: #593c23;
+  box-shadow: 0 1px 0px rgba(255, 255, 255, 0.4);
+  margin: 4px 0;
+}
+
+/* Contact Items with Engraved Plaque Effect */
+.contactGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  position: relative;
+  z-index: 1;
+}
+
+.contactItem {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  text-decoration: none;
+  color: #2b180a;
+  padding: 12px 14px;
+  border-radius: 10px;
+  background-color: rgba(60, 36, 18, 0.08);
+  box-shadow: 
+    inset 1px 1px 3px rgba(0, 0, 0, 0.4),
+    0 1px 0px rgba(255, 255, 255, 0.3);
+  transition: all 0.2s ease;
+}
+
+.contactItem:hover {
+  background-color: rgba(60, 36, 18, 0.16);
+}
+
+.iconWrapper {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background-color: #3b2512;
+  color: #d4af37;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.8), 0 1px 1px rgba(255, 255, 255, 0.3);
+}
+
+.contactText {
+  font-size: 0.925rem;
+  font-weight: 600;
+  text-shadow: 0 1px 0px rgba(255, 255, 255, 0.3);
+  word-break: break-word;
+}
+
+/* Actions Section */
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  position: relative;
+  z-index: 1;
+}
+
+.primaryBtn {
+  width: 100%;
+  padding: 15px;
+  background: linear-gradient(180deg, #4a2e16 0%, #291708 100%);
+  color: #f5e6d3;
+  border: 1px solid #1a0d04;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 700;
+  font-family: inherit;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  box-shadow: 
+    0 4px 12px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0px rgba(255, 255, 255, 0.2);
+  transition: transform 0.15s ease, opacity 0.15s ease;
+}
+
+.primaryBtn:active {
+  transform: scale(0.98);
+}
+
+.secondaryRow {
+  display: flex;
+  gap: 10px;
+}
+
+.secondaryBtn {
+  flex: 1;
+  padding: 12px 10px;
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid #593c23;
+  color: #2b180a;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  box-shadow: inset 0 1px 0px rgba(255, 255, 255, 0.4), 0 2px 4px rgba(0,0,0,0.1);
+  transition: background-color 0.2s ease;
+}
+
+.secondaryBtn:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+}

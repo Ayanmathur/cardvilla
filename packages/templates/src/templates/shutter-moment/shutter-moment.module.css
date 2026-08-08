@@ -1,0 +1,262 @@
+/* shutter-moment.module.css */
+
+/* Design Tokens for this template */
+.container {
+  --cv-bg-color: #faf9f6; /* Off-white/cream */
+  --cv-text-primary: #1a1a1a;
+  --cv-text-secondary: #555555;
+  --cv-accent: #c4a259; /* Elegant gold */
+  --cv-border: rgba(0, 0, 0, 0.08);
+  --cv-card-bg: #ffffff;
+  
+  font-family: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  background-color: var(--cv-bg-color);
+  color: var(--cv-text-primary);
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.flashOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: white;
+  z-index: 100;
+  pointer-events: none;
+}
+
+.content {
+  max-width: 480px;
+  margin: 0 auto;
+  width: 100%;
+  padding: 40px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  z-index: 1;
+}
+
+/* Hero Section */
+.heroSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 24px;
+}
+
+.cameraIconContainer {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.cameraSvg {
+  width: 80px;
+  height: 80px;
+  color: var(--cv-text-primary);
+  position: relative;
+  z-index: 2;
+}
+
+.photoPrint {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 50px;
+  height: 60px;
+  background: white;
+  border: 2px solid var(--cv-text-primary);
+  border-radius: 4px;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 4px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.photoContent {
+  width: 100%;
+  height: 70%;
+  background-color: var(--cv-border);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.photoLandscape {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, var(--cv-accent) 0%, #e0c68c 100%);
+  opacity: 0.8;
+}
+
+.brandInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.logo {
+  max-width: 80px;
+  max-height: 80px;
+  object-fit: contain;
+  margin-bottom: 8px;
+  border-radius: 50%;
+}
+
+.companyName {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin: 0;
+  color: var(--cv-text-secondary);
+}
+
+.fullName {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin: 0;
+  color: var(--cv-text-primary);
+  line-height: 1.2;
+}
+
+.title {
+  font-size: 1.1rem;
+  font-weight: 400;
+  color: var(--cv-text-secondary);
+  margin: 0;
+  letter-spacing: 0.02em;
+}
+
+.divider {
+  width: 40px;
+  height: 2px;
+  background-color: var(--cv-accent);
+  margin: 12px 0;
+}
+
+.specialty {
+  font-size: 0.95rem;
+  color: var(--cv-text-secondary);
+  margin: 0;
+  font-style: italic;
+  font-family: 'Playfair Display', serif;
+}
+
+/* Contact Info */
+.contactGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background: var(--cv-card-bg);
+  padding: 8px;
+  border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.04);
+}
+
+.contactItem {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+  text-decoration: none;
+  color: var(--cv-text-primary);
+  border-radius: 12px;
+  background: transparent;
+  transition: background-color 0.2s;
+}
+
+.iconWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: rgba(196, 162, 89, 0.1); /* light accent */
+  color: var(--cv-accent);
+}
+
+.contactLabel {
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+/* Actions */
+.actionButtons {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: auto;
+}
+
+.primaryBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: 100%;
+  padding: 16px;
+  background-color: var(--cv-text-primary);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  transition: transform 0.1s, opacity 0.2s;
+}
+
+.primaryBtn:active {
+  transform: scale(0.98);
+}
+
+.primaryBtn:hover {
+  opacity: 0.9;
+}
+
+.secondaryActions {
+  display: flex;
+  gap: 12px;
+}
+
+.secondaryBtn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px;
+  background-color: var(--cv-card-bg);
+  color: var(--cv-text-primary);
+  border: 1px solid var(--cv-border);
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 500;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+}
+
+.secondaryBtn:hover {
+  background-color: rgba(0,0,0,0.02);
+}

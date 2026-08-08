@@ -55,7 +55,17 @@ export default async function PublicGalleryPage({
               <Link key={template.id} href={`/gallery/${template.id}`} className={styles.cardLink}>
                 <div className={styles.card}>
                   <div className={styles.previewContainer}>
-                    <CanvasRenderer canvasJson={template.canvasJson} scale={0.48} />
+                    {template.componentKey ? (
+                      <iframe
+                        src={`http://localhost:3001/preview/${template.componentKey}`}
+                        className={styles.previewIframe}
+                        title={`Preview of ${template.name}`}
+                        loading="lazy"
+                        scrolling="no"
+                      />
+                    ) : (
+                      <CanvasRenderer canvasJson={template.canvasJson} scale={0.48} />
+                    )}
                   </div>
                   <div className={styles.cardMeta}>
                     <h3 className={styles.templateName}>{template.name}</h3>
@@ -72,3 +82,4 @@ export default async function PublicGalleryPage({
     </div>
   );
 }
+

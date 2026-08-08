@@ -80,7 +80,9 @@ export const db = {
       name: string;
       categoryId: string;
       thumbnailUrl?: string | null;
-      canvasJson: any;
+      canvasJson?: any;
+      componentKey?: string;
+      configSchema?: any;
       status?: string;
       createdById: string;
       fieldSchemas?: Array<{
@@ -99,7 +101,9 @@ export const db = {
         name: data.name,
         category_id: data.categoryId,
         thumbnail_url: data.thumbnailUrl || null,
-        canvas_json: data.canvasJson,
+        canvas_json: data.canvasJson || null,
+        component_key: data.componentKey || null,
+        config_schema: data.configSchema || [],
         status: data.status || 'draft',
         created_by: data.createdById,
         created_at: now,
@@ -131,6 +135,8 @@ export const db = {
       categoryId?: string;
       thumbnailUrl?: string | null;
       canvasJson?: any;
+      componentKey?: string;
+      configSchema?: any;
       status?: string;
       fieldSchemas?: Array<{
         fieldKey: string;
@@ -146,6 +152,8 @@ export const db = {
       if (data.categoryId !== undefined) updateData.category_id = data.categoryId;
       if (data.thumbnailUrl !== undefined) updateData.thumbnail_url = data.thumbnailUrl;
       if (data.canvasJson !== undefined) updateData.canvas_json = data.canvasJson;
+      if (data.componentKey !== undefined) updateData.component_key = data.componentKey;
+      if (data.configSchema !== undefined) updateData.config_schema = data.configSchema;
       if (data.status !== undefined) updateData.status = data.status;
 
       const { error } = await supabase.from('templates').update(updateData).eq('id', id);
@@ -297,6 +305,8 @@ function mapTemplate(row: any) {
     categoryId: row.category_id,
     thumbnailUrl: row.thumbnail_url,
     canvasJson: row.canvas_json,
+    componentKey: row.component_key,
+    configSchema: row.config_schema || [],
     status: row.status,
     createdById: row.created_by,
     createdAt: row.created_at,

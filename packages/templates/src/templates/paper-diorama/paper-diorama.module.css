@@ -1,0 +1,244 @@
+/* paper-diorama.module.css */
+
+.container {
+  --cv-bg-color: #E8EBF0;
+  --cv-bg-mid: #8B9DC3;
+  --cv-bg-front: #4A6FA5;
+  --cv-text-primary: #1a1a24;
+  --cv-text-secondary: #4a4a5a;
+  --cv-card-bg: #ffffff;
+  --cv-border: rgba(0,0,0,0.05);
+
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background-color: #f7f8fa;
+  color: var(--cv-text-primary);
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+/* Paper texture grain */
+.container::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.4;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  z-index: 10;
+  mix-blend-mode: multiply;
+}
+
+.dioramaWrapper {
+  position: relative;
+  width: 100%;
+  height: 320px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+
+.layerBg, .layerMid, .layerFront {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  filter: drop-shadow(0 -4px 12px rgba(0,0,0,0.15));
+}
+
+.layerBg {
+  height: 100%;
+  background: linear-gradient(180deg, #f0f2f5 0%, var(--cv-bg-color) 100%);
+  z-index: 1;
+  filter: none;
+}
+
+.layerMid {
+  height: 70%;
+  z-index: 2;
+  color: var(--cv-bg-mid);
+}
+
+.layerFront {
+  height: 45%;
+  z-index: 3;
+  color: var(--cv-bg-front);
+}
+
+.svgLayer {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.content {
+  max-width: 480px;
+  margin: 0 auto;
+  width: 100%;
+  padding: 0 24px 40px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  z-index: 11;
+  position: relative;
+  background: white;
+  border-top-left-radius: 24px;
+  border-top-right-radius: 24px;
+  margin-top: -20px;
+  box-shadow: 0 -8px 24px rgba(0,0,0,0.08);
+  padding-top: 32px;
+}
+
+/* Brand Info */
+.brandInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 8px;
+}
+
+.logo {
+  max-width: 72px;
+  max-height: 72px;
+  object-fit: contain;
+  margin-bottom: 8px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.companyName {
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin: 0;
+  color: var(--cv-bg-front);
+}
+
+.fullName {
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0;
+  color: var(--cv-text-primary);
+  line-height: 1.2;
+}
+
+.title {
+  font-size: 1.1rem;
+  font-weight: 400;
+  color: var(--cv-text-secondary);
+  margin: 0;
+}
+
+/* Contact Info */
+.contactGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.contactItem {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+  text-decoration: none;
+  color: var(--cv-text-primary);
+  border-radius: 12px;
+  background: #f8f9fb;
+  border: 1px solid var(--cv-border);
+  transition: all 0.2s;
+}
+
+.contactItem:hover {
+  background: white;
+  border-color: var(--cv-bg-mid);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+.iconWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 36px;
+  height: 36px;
+  color: var(--cv-bg-front);
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+}
+
+.contactLabel {
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+/* Actions */
+.actionButtons {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.primaryBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: 100%;
+  padding: 16px;
+  background-color: var(--cv-bg-front);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  transition: opacity 0.2s, transform 0.1s;
+  box-shadow: 0 4px 14px rgba(74, 111, 165, 0.3);
+}
+
+.primaryBtn:active {
+  transform: scale(0.98);
+}
+
+.primaryBtn:hover {
+  opacity: 0.9;
+}
+
+.secondaryActions {
+  display: flex;
+  gap: 12px;
+}
+
+.secondaryBtn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px;
+  background-color: white;
+  color: var(--cv-bg-front);
+  border: 2px solid var(--cv-bg-mid);
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.secondaryBtn:hover {
+  background-color: #f0f4f8;
+}

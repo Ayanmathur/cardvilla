@@ -1,0 +1,258 @@
+/* Dental Bright Template Styles (Mobile-first 375px) */
+.container {
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto;
+  min-height: 100vh;
+  background-color: var(--cv-off-white, #f8fafc);
+  color: var(--cv-grey-900, #0f172a);
+  font-family: var(--cv-font-primary, 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif);
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  overflow-x: hidden;
+  position: relative;
+}
+
+.content {
+  padding: 24px 20px 32px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.headerCard {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 28px 20px;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(56, 189, 248, 0.12);
+  border: 1px solid rgba(56, 189, 248, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.headerBackgroundAccent {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 6px;
+  background: linear-gradient(90deg, #98ffd0 0%, #38bdf8 50%, #0284c7 100%);
+}
+
+.motifContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  position: relative;
+  width: 100px;
+  height: 100px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.toothCircle {
+  width: 76px;
+  height: 76px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #e0f2fe 0%, #f0fdf4 100%);
+  border: 2px solid #bae6fd;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 14px rgba(56, 189, 248, 0.15);
+}
+
+.toothSvg {
+  width: 42px;
+  height: 42px;
+  fill: none;
+  stroke: #0284c7;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.sparklePosition1 {
+  position: absolute;
+  top: 6px;
+  right: 12px;
+  color: #38bdf8;
+}
+
+.sparklePosition2 {
+  position: absolute;
+  top: 14px;
+  left: 10px;
+  color: #98ffd0;
+}
+
+.sparklePosition3 {
+  position: absolute;
+  bottom: 12px;
+  right: 8px;
+  color: #0284c7;
+}
+
+.sparkleSvg {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+}
+
+.logo {
+  max-width: 120px;
+  max-height: 50px;
+  object-fit: contain;
+  margin-bottom: 12px;
+}
+
+.companyName {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #0284c7;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  margin: 0 0 6px 0;
+}
+
+.fullName {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0 0 6px 0;
+  line-height: 1.2;
+}
+
+.title {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #475569;
+  margin: 0 0 12px 0;
+}
+
+.badge {
+  display: inline-block;
+  background-color: #f0fdf4;
+  color: #0d9488;
+  border: 1px solid rgba(152, 255, 208, 0.6);
+  font-size: 0.8rem;
+  font-weight: 500;
+  padding: 4px 12px;
+  border-radius: 9999px;
+  max-width: 90%;
+  word-break: break-word;
+}
+
+.contactGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.contactItem {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 16px;
+  background: #ffffff;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  text-decoration: none;
+  color: #1e293b;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
+}
+
+.contactItem:hover {
+  border-color: #38bdf8;
+  box-shadow: 0 4px 12px rgba(56, 189, 248, 0.15);
+  transform: translateY(-1px);
+}
+
+.iconWrapper {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background: #f0fdf4;
+  color: #0284c7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.contactTextGroup {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.contactValue {
+  font-size: 0.9rem;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.actionButtons {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.primaryBtn {
+  width: 100%;
+  padding: 14px 20px;
+  background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+  color: #ffffff;
+  border: none;
+  border-radius: 12px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(2, 132, 199, 0.25);
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+
+.primaryBtn:hover {
+  opacity: 0.95;
+  box-shadow: 0 6px 18px rgba(2, 132, 199, 0.35);
+}
+
+.secondaryActions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.secondaryBtn {
+  padding: 12px 14px;
+  background: #ffffff;
+  color: #0284c7;
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  border-radius: 10px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+
+.secondaryBtn:hover {
+  background: #e0f2fe;
+  border-color: #38bdf8;
+}

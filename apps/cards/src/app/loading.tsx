@@ -7,14 +7,14 @@ export default function CardsLoadingPage() {
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
-      background: '#0d0f1a',
-      color: '#c9a84c',
+      background: 'var(--cv-bg)',
+      color: 'var(--cv-gold)',
     }}>
       <div style={{
         width: '36px',
         height: '36px',
         border: '3px solid rgba(201, 168, 76, 0.2)',
-        borderTop: '3px solid #c9a84c',
+        borderTop: '3px solid var(--cv-gold, #c9a84c)',
         borderRadius: '50%',
         animation: 'spin 0.8s linear infinite',
       }} />

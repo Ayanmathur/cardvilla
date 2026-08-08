@@ -2,13 +2,14 @@
 
 import React, { useEffect, useState, use } from 'react';
 import { useRouter } from 'next/navigation';
-import { CardFieldEditor } from '@/components/card-editor/CardFieldEditor';
+import { ConfigEditor } from '@/components/config-editor/ConfigEditor';
 
 export default function AdminEditCardPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params);
   const router = useRouter();
 
   const [card, setCard] = useState<any>(null);
+  const [data, setData] = useState<Record<string, any>>({});
   const [loading, setLoading] = useState<boolean>(true);
   const [saving, setSaving] = useState<boolean>(false);
   const [error, setError] = useState<string>('');
@@ -25,8 +26,9 @@ export default function AdminEditCardPage({ params }: { params: Promise<{ id: st
           }
           throw new Error('Card instance not found');
         }
-        const data = await res.json();
-        setCard(data.card);
+        const responseData = await res.json();
+        setCard(responseData.card);
+        setData(responseData.card.data || {});
       } catch (err: any) {
         setError(err.message);
       } finally {
@@ -36,13 +38,13 @@ export default function AdminEditCardPage({ params }: { params: Promise<{ id: st
     loadCard();
   }, [id]);
 
-  const handleSave = async (updatedData: Record<string, any>) => {
+  const handleSave = async () => {
     try {
       setSaving(true);
       const res = await fetch(`/api/admin/cards/${id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ data: updatedData }),
+        body: JSON.stringify({ data }),
       });
 
       if (!res.ok) {
@@ -61,7 +63,7 @@ export default function AdminEditCardPage({ params }: { params: Promise<{ id: st
 
   if (loading) {
     return (
-      <div style={{ padding: '4rem', textAlign: 'center', color: '#c9a84c' }}>
+      <div style={{ padding: '4rem', textAlign: 'center', color: 'var(--cv-gold)' }}>
         Loading Card Content...
       </div>
     );
@@ -69,22 +71,56 @@ export default function AdminEditCardPage({ params }: { params: Promise<{ id: st
 
   if (error || !card) {
     return (
-      <div style={{ padding: '4rem', textAlign: 'center', color: '#ef4444' }}>
+      <div style={{ padding: '4rem', textAlign: 'center', color: 'var(--cv-error)' }}>
         Error: {error || 'Card instance not found'}
       </div>
     );
   }
 
+  const encodedData = encodeURIComponent(JSON.stringify(data));
+  const previewUrl = `http://localhost:3001/preview/${card.template?.componentKey}?data=${encodedData}`;
+
+  const previewIframe = (
+    <div style={{ display: 'flex', flexDirection: 'column', height: '100%', backgroundColor: 'var(--cv-dark-blue)' }}>
+      <div style={{ padding: 'var(--cv-space-4)', borderBottom: '1px solid var(--cv-grey-800)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <span style={{ color: 'var(--cv-grey-400)', fontSize: 'var(--cv-text-sm)' }}>
+          Preview: <span style={{ fontFamily: 'var(--cv-font-mono)', color: 'var(--cv-gold)' }}>{card.template?.componentKey || 'Legacy'}</span>
+        </span>
+        <button 
+          onClick={handleSave} 
+          disabled={saving}
+          style={{ 
+            padding: '8px 16px', 
+            backgroundColor: 'var(--cv-magenta-pink)', 
+            color: 'white', 
+            border: 'none', 
+            borderRadius: 'var(--cv-radius-md)',
+            opacity: saving ? 0.7 : 1,
+            cursor: saving ? 'not-allowed' : 'pointer',
+            fontWeight: 'bold',
+            boxShadow: 'var(--cv-shadow-glow-pink)'
+          }}
+        >
+          {saving ? 'Saving...' : 'Save Changes'}
+        </button>
+      </div>
+      <iframe
+        src={previewUrl}
+        style={{ flex: 1, width: '100%', border: 'none' }}
+        title="Live Preview"
+      />
+    </div>
+  );
+
   return (
-    <CardFieldEditor
-      cardId={card.id}
-      slug={card.slug}
-      template={card.template}
-      initialData={card.data || {}}
-      qrCodeUrl={card.qrCode?.targetUrl}
-      userRole="admin"
-      onSave={handleSave}
-      isSaving={saving}
-    />
+    <div style={{ height: 'calc(100vh - 40px)', padding: 'var(--cv-space-4)' }}>
+      <ConfigEditor
+        configSchema={card.template?.fieldSchemas || []}
+        data={data}
+        onChange={setData}
+        role="admin"
+        previewComponent={previewIframe}
+      />
+    </div>
   );
 }

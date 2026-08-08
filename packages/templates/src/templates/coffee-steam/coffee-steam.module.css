@@ -1,0 +1,252 @@
+/* Coffee Steam Template Styles (Mobile-first 375px) */
+.container {
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto;
+  min-height: 100vh;
+  background-color: #fffdf6;
+  color: #3a2220;
+  font-family: var(--cv-font-primary, 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif);
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  overflow-x: hidden;
+  position: relative;
+}
+
+.content {
+  padding: 24px 20px 32px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.headerCard {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 30px 20px;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(74, 44, 42, 0.08);
+  border: 1px solid rgba(184, 115, 51, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.headerBackgroundAccent {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 6px;
+  background: linear-gradient(90deg, #4a2c2a 0%, #b87333 50%, #d97706 100%);
+}
+
+.motifContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 18px;
+  position: relative;
+  height: 110px;
+}
+
+.steamArea {
+  position: relative;
+  width: 80px;
+  height: 45px;
+}
+
+.steamWisp {
+  position: absolute;
+  color: #b87333;
+}
+
+.steamWisp1 {
+  left: 20px;
+  bottom: 0;
+}
+
+.steamWisp2 {
+  left: 38px;
+  bottom: 0;
+}
+
+.steamWisp3 {
+  left: 56px;
+  bottom: 0;
+}
+
+.steamSvg {
+  width: 14px;
+  height: 35px;
+  stroke: #b87333;
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  fill: none;
+}
+
+.cupSvg {
+  width: 58px;
+  height: 52px;
+  stroke: #4a2c2a;
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: #fffdf6;
+}
+
+.logo {
+  max-width: 120px;
+  max-height: 50px;
+  object-fit: contain;
+  margin-bottom: 12px;
+}
+
+.companyName {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #b87333;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin: 0 0 6px 0;
+}
+
+.fullName {
+  font-size: 1.55rem;
+  font-weight: 700;
+  color: #4a2c2a;
+  margin: 0 0 6px 0;
+  line-height: 1.2;
+}
+
+.title {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #78350f;
+  margin: 0 0 10px 0;
+}
+
+.tagline {
+  display: inline-block;
+  font-size: 0.8rem;
+  font-style: italic;
+  color: #92400e;
+  background-color: #fef3c7;
+  border: 1px dashed rgba(184, 115, 51, 0.4);
+  padding: 4px 14px;
+  border-radius: 9999px;
+  max-width: 90%;
+  word-break: break-word;
+}
+
+.contactGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.contactItem {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 16px;
+  background: #ffffff;
+  border-radius: 12px;
+  border: 1px solid rgba(184, 115, 51, 0.2);
+  text-decoration: none;
+  color: #3a2220;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 6px rgba(74, 44, 42, 0.03);
+}
+
+.contactItem:hover {
+  border-color: #b87333;
+  box-shadow: 0 4px 12px rgba(184, 115, 51, 0.15);
+  transform: translateY(-1px);
+}
+
+.iconWrapper {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background: #fef3c7;
+  color: #b87333;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.contactTextGroup {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.contactValue {
+  font-size: 0.9rem;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.actionButtons {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.primaryBtn {
+  width: 100%;
+  padding: 14px 20px;
+  background: linear-gradient(135deg, #b87333 0%, #4a2c2a 100%);
+  color: #ffffff;
+  border: none;
+  border-radius: 12px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(74, 44, 42, 0.25);
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+
+.primaryBtn:hover {
+  opacity: 0.95;
+  box-shadow: 0 6px 18px rgba(74, 44, 42, 0.35);
+}
+
+.secondaryActions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.secondaryBtn {
+  padding: 12px 14px;
+  background: #ffffff;
+  color: #4a2c2a;
+  border: 1px solid rgba(184, 115, 51, 0.35);
+  border-radius: 10px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+
+.secondaryBtn:hover {
+  background: #fef3c7;
+  border-color: #b87333;
+}

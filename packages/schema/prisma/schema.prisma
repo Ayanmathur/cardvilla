@@ -98,7 +98,9 @@ model Template {
   name         String
   categoryId   String         @map("category_id")
   thumbnailUrl String?        @map("thumbnail_url")
-  canvasJson   Json           @map("canvas_json")
+  canvasJson   Json?          @map("canvas_json")
+  componentKey String?        @map("component_key")
+  configSchema Json           @default("[]") @map("config_schema")
   status       TemplateStatus @default(draft)
   createdById  String         @map("created_by")
   createdAt    DateTime       @default(now()) @map("created_at")

@@ -3,14 +3,16 @@
 import React, { useRef } from 'react';
 import { CanvasRenderer } from '../../components/CanvasRenderer';
 import { downloadVCard } from '../../lib/vcard';
+import { getTemplate } from '@card-villa/templates';
 import styles from './PublicCardView.module.css';
 
 interface PublicCardViewProps {
   card: {
     id: string;
     slug: string;
+    component_key?: string | null;
     data: Record<string, any>;
-    template: {
+    template?: {
       name: string;
       canvasJson: any;
     };
@@ -26,11 +28,27 @@ export const PublicCardView: React.FC<PublicCardViewProps> = ({ card }) => {
     downloadVCard(data, `${fileName}.vcf`);
   };
 
+  const handleShare = async () => {
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: data.full_name || data.company_name || 'Digital Card',
+          text: `Check out ${data.full_name || data.company_name}'s digital card!`,
+          url: window.location.href,
+        });
+      } catch (err) {
+        console.error('Share failed:', err);
+      }
+    } else {
+      navigator.clipboard.writeText(window.location.href);
+      alert('Link copied to clipboard!');
+    }
+  };
+
   const handleDownloadImage = () => {
     const cardEl = cardRef.current;
     if (!cardEl) return;
 
-    // Use SVG & HTML canvas rendering for quick image snapshot
     try {
       const svgString = new XMLSerializer().serializeToString(cardEl);
       const canvas = document.createElement('canvas');
@@ -58,28 +76,41 @@ export const PublicCardView: React.FC<PublicCardViewProps> = ({ card }) => {
     }
   };
 
+  const TemplateEntry = card.component_key ? getTemplate(card.component_key) : null;
+  const TemplateComponent = TemplateEntry?.component;
+
   return (
     <div className={styles.pageWrapper}>
       <div className={styles.cardContainer}>
-        {/* Main Canvas Card Renderer */}
-        <div ref={cardRef} className={styles.cardBox}>
-          <CanvasRenderer canvasJson={card.template.canvasJson} data={data} scale={1} />
-        </div>
+        {TemplateComponent ? (
+          <div className={styles.templateWrapper}>
+            <TemplateComponent data={data} />
+          </div>
+        ) : (
+          <div ref={cardRef} className={styles.cardBox}>
+            <CanvasRenderer canvasJson={card.template?.canvasJson} data={data} scale={1} />
+          </div>
+        )}
 
         {/* Action Toolbar */}
         <div className={styles.actionBar}>
           <button onClick={handleSaveContact} className={styles.vcardBtn}>
             📇 Save Contact (.vcf)
           </button>
-          <button onClick={handleDownloadImage} className={styles.downloadImgBtn}>
-            🖼️ Download as Image
+          <button onClick={handleShare} className={styles.shareBtn}>
+            🔗 Share Card
           </button>
+          {!TemplateComponent && (
+            <button onClick={handleDownloadImage} className={styles.downloadImgBtn}>
+              🖼️ Download Image
+            </button>
+          )}
         </div>
 
         {/* Powered By Footer */}
         <footer className={styles.cardFooter}>
           <a
-            href="http://localhost:3000"
+            href="https://cardvilla.com"
             target="_blank"
             rel="noopener noreferrer"
             className={styles.brandLink}

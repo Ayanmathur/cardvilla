@@ -1,0 +1,244 @@
+/* rope_knot.module.css */
+
+.container {
+  --cv-bg-color: #1b3a5c; /* Deep Navy */
+  --cv-card-bg: #f4e8d3; /* Warm Linen Cream */
+  --cv-text-primary: #1b3a5c; /* Navy */
+  --cv-text-secondary: #6e5033; /* Earth Tan */
+  --cv-accent-rope: #d2b48c; /* Tan Rope Accent */
+  --cv-accent-navy: #1b3a5c;
+  --cv-border-navy: rgba(27, 58, 92, 0.2);
+
+  font-family: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background-color: var(--cv-bg-color);
+  background-image: radial-gradient(circle at 50% 30%, #254a75 0%, #10243b 100%);
+  color: var(--cv-text-primary);
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  box-sizing: border-box;
+  padding: 24px 16px;
+}
+
+.cardWrapper {
+  position: relative;
+  max-width: 400px;
+  width: 100%;
+  background-color: var(--cv-card-bg);
+  /* Linen Texture Effect using CSS cross-hatched linear gradients */
+  background-image: 
+    linear-gradient(90deg, rgba(210, 180, 140, 0.15) 1px, transparent 1px),
+    linear-gradient(rgba(210, 180, 140, 0.15) 1px, transparent 1px);
+  background-size: 8px 8px;
+  border-radius: 16px;
+  padding: 32px 26px;
+  box-sizing: border-box;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4), inset 0 0 40px rgba(210, 180, 140, 0.3);
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  overflow: hidden;
+  border: 4px solid var(--cv-accent-rope);
+}
+
+/* Rope Border Overlay */
+.ropeBorder {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  right: 8px;
+  bottom: 8px;
+  border: 2px stroke var(--cv-text-primary);
+  pointer-events: none;
+  border-radius: 10px;
+}
+
+/* Corner Knot Illustration Containers */
+.knotTopLeft, .knotTopRight, .knotBottomLeft, .knotBottomRight {
+  position: absolute;
+  width: 32px;
+  height: 32px;
+  color: var(--cv-text-primary);
+  pointer-events: none;
+}
+
+.knotTopLeft { top: 12px; left: 12px; }
+.knotTopRight { top: 12px; right: 12px; transform: scaleX(-1); }
+.knotBottomLeft { bottom: 12px; left: 12px; transform: scaleY(-1); }
+.knotBottomRight { bottom: 12px; right: 12px; transform: scale(-1); }
+
+/* Header Zone */
+.headerZone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 12px;
+  position: relative;
+  z-index: 1;
+  padding-top: 10px;
+}
+
+.logo {
+  max-width: 72px;
+  max-height: 72px;
+  object-fit: contain;
+  border-radius: 50%;
+  border: 2px solid var(--cv-accent-rope);
+  padding: 4px;
+  background-color: #ffffff;
+}
+
+.companyName {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.45rem;
+  font-weight: 700;
+  color: var(--cv-text-primary);
+  margin: 0;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.fullName {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.7rem;
+  font-weight: 700;
+  color: #10243b;
+  margin: 0;
+  line-height: 1.15;
+}
+
+.title {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--cv-text-secondary);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.ropeDivider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  margin: 4px 0;
+  color: var(--cv-text-primary);
+}
+
+.ropeDividerLine {
+  height: 2px;
+  flex: 1;
+  background-color: var(--cv-accent-rope);
+  border-bottom: 1px dashed var(--cv-text-primary);
+}
+
+/* Contact Block */
+.contactGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  position: relative;
+  z-index: 1;
+}
+
+.contactItem {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  text-decoration: none;
+  color: var(--cv-text-primary);
+  padding: 10px 14px;
+  border-radius: 10px;
+  background-color: rgba(27, 58, 92, 0.05);
+  border: 1px solid rgba(27, 58, 92, 0.12);
+  transition: all 0.2s ease;
+}
+
+.contactItem:hover {
+  background-color: rgba(27, 58, 92, 0.12);
+}
+
+.iconWrapper {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: var(--cv-text-primary);
+  color: #f4e8d3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.contactText {
+  font-size: 0.925rem;
+  font-weight: 500;
+  word-break: break-word;
+}
+
+/* Action Buttons */
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  position: relative;
+  z-index: 1;
+}
+
+.primaryBtn {
+  width: 100%;
+  padding: 14px;
+  background-color: var(--cv-text-primary);
+  color: #f4e8d3;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  box-shadow: 0 4px 14px rgba(27, 58, 92, 0.35);
+  transition: opacity 0.2s ease;
+}
+
+.primaryBtn:hover {
+  opacity: 0.92;
+}
+
+.secondaryRow {
+  display: flex;
+  gap: 8px;
+}
+
+.secondaryBtn {
+  flex: 1;
+  padding: 10px 8px;
+  background-color: #ffffff;
+  border: 1.5px solid var(--cv-text-primary);
+  color: var(--cv-text-primary);
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: background-color 0.2s ease;
+}
+
+.secondaryBtn:hover {
+  background-color: rgba(27, 58, 92, 0.08);
+}
