@@ -3,6 +3,7 @@
 import React, { useEffect, useState, use } from 'react';
 import { useRouter } from 'next/navigation';
 import { ConfigEditor } from '@/components/config-editor/ConfigEditor';
+import { TemplatePreview } from '@/components/template-preview/TemplatePreview';
 
 export default function AdminEditCardPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params);
@@ -79,12 +80,8 @@ export default function AdminEditCardPage({ params }: { params: Promise<{ id: st
 
   const componentKey = card.template?.componentKey || card.template?.component_key || 'modern_minimal';
   const schema = card.template?.configSchema || card.template?.config_schema || card.template?.fieldSchemas || [];
-  const cardsDomain = process.env.NEXT_PUBLIC_CARDS_URL || 'http://localhost:3001';
 
-  const encodedData = encodeURIComponent(JSON.stringify(data));
-  const previewUrl = `${cardsDomain}/preview/${componentKey}?data=${encodedData}`;
-
-  const previewIframe = (
+  const previewPanel = (
     <div style={{ display: 'flex', flexDirection: 'column', height: '100%', backgroundColor: 'var(--cv-dark-blue)' }}>
       <div style={{ padding: 'var(--cv-space-4)', borderBottom: '1px solid var(--cv-grey-800)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <span style={{ color: 'var(--cv-grey-400)', fontSize: 'var(--cv-text-sm)' }}>
@@ -108,11 +105,14 @@ export default function AdminEditCardPage({ params }: { params: Promise<{ id: st
           {saving ? 'Saving...' : 'Save Changes'}
         </button>
       </div>
-      <iframe
-        src={previewUrl}
-        style={{ flex: 1, width: '100%', border: 'none' }}
-        title="Live Preview"
-      />
+      <div style={{ flex: 1, display: 'flex', justifyContent: 'center', alignItems: 'flex-start', padding: 'var(--cv-space-4)', overflow: 'auto' }}>
+        <TemplatePreview
+          componentKey={componentKey}
+          data={data}
+          scale={1}
+          interactive={false}
+        />
+      </div>
     </div>
   );
 
@@ -123,7 +123,7 @@ export default function AdminEditCardPage({ params }: { params: Promise<{ id: st
         data={data}
         onChange={setData}
         role="admin"
-        previewComponent={previewIframe}
+        previewComponent={previewPanel}
       />
     </div>
   );

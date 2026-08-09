@@ -2,7 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { db } from '@card-villa/schema';
-import { CanvasRenderer } from '@/components/builder/CanvasRenderer';
+import { TemplateDetailPreview } from './TemplateDetailPreview';
 import styles from './detail.module.css';
 
 export default async function TemplateDetailPage({
@@ -17,7 +17,7 @@ export default async function TemplateDetailPage({
     notFound();
   }
 
-  const businessPhone = '919999999999'; // Business contact number
+  const businessPhone = '919999999999';
   const whatsappMessage = encodeURIComponent(
     `Hello Card Villa, I would like to get a digital card created using the "${template.name}" design!`
   );
@@ -29,7 +29,6 @@ export default async function TemplateDetailPage({
   return (
     <div className={styles.container}>
       <div className={styles.inner}>
-        {/* Back Link */}
         <Link href="/gallery" className={styles.backLink}>
           ← Back to Design Gallery
         </Link>
@@ -37,16 +36,7 @@ export default async function TemplateDetailPage({
         <div className={styles.grid}>
           {/* Large Preview */}
           <div className={styles.previewCard}>
-            {template.componentKey ? (
-              <iframe
-                src={`${process.env.NEXT_PUBLIC_CARDS_URL || 'http://localhost:3001'}/preview/${template.componentKey}`}
-                className={styles.previewIframe}
-                title={`Preview of ${template.name}`}
-                loading="lazy"
-              />
-            ) : (
-              <CanvasRenderer canvasJson={template.canvasJson} scale={0.9} />
-            )}
+            <TemplateDetailPreview componentKey={template.componentKey || null} />
           </div>
 
           {/* Details & CTA */}

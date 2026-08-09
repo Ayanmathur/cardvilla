@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { TemplatePreview } from '@/components/template-preview/TemplatePreview';
 import styles from './templates.module.css';
 
 interface RegistryTemplate {
@@ -282,19 +283,9 @@ export default function AdminTemplatesPage() {
             <div key={template.id} className={styles.templateCard}>
               <div className={styles.previewBox}>
                 {template.componentKey ? (
-                  <iframe
-                    src={`${process.env.NEXT_PUBLIC_CARDS_URL || 'http://localhost:3001'}/preview/${template.componentKey}`}
-                    style={{
-                      width: '375px',
-                      height: '640px',
-                      border: 'none',
-                      borderRadius: '8px',
-                      transform: 'scale(0.48)',
-                      transformOrigin: 'top center',
-                      pointerEvents: 'none',
-                    }}
-                    title={`Preview of ${template.name}`}
-                    loading="lazy"
+                  <TemplatePreview
+                    componentKey={template.componentKey}
+                    scale={0.48}
                   />
                 ) : (
                   <span style={{ color: 'var(--cv-grey-400)' }}>Legacy Canvas</span>

@@ -2,6 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import { db } from '@card-villa/schema';
 import { CanvasRenderer } from '@/components/builder/CanvasRenderer';
+import { GalleryGrid } from './GalleryGrid';
 import styles from './gallery.module.css';
 
 export const dynamic = 'force-dynamic';
@@ -31,6 +32,15 @@ export default async function PublicGalleryPage({
     categoryId,
   });
 
+  // Serialize template data for the client component
+  const serializedTemplates = templates.map(t => ({
+    id: t.id,
+    name: t.name,
+    componentKey: t.componentKey || null,
+    categoryName: t.category?.name || 'Business Card',
+    canvasJson: t.canvasJson,
+  }));
+
   return (
     <div className={styles.container}>
       <header className={styles.header}>
@@ -50,36 +60,9 @@ export default async function PublicGalleryPage({
             <p>Check back soon for newly published business card templates.</p>
           </div>
         ) : (
-          <div className={styles.grid}>
-            {templates.map((template) => (
-              <Link key={template.id} href={`/gallery/${template.id}`} className={styles.cardLink}>
-                <div className={styles.card}>
-                  <div className={styles.previewContainer}>
-                    {template.componentKey ? (
-                      <iframe
-                        src={`${process.env.NEXT_PUBLIC_CARDS_URL || 'http://localhost:3001'}/preview/${template.componentKey}`}
-                        className={styles.previewIframe}
-                        title={`Preview of ${template.name}`}
-                        loading="lazy"
-                        scrolling="no"
-                      />
-                    ) : (
-                      <CanvasRenderer canvasJson={template.canvasJson} scale={0.48} />
-                    )}
-                  </div>
-                  <div className={styles.cardMeta}>
-                    <h3 className={styles.templateName}>{template.name}</h3>
-                    <span className={styles.badge}>
-                      {template.category?.name || 'Business Card'}
-                    </span>
-                  </div>
-                </div>
-              </Link>
-            ))}
-          </div>
+          <GalleryGrid templates={serializedTemplates} />
         )}
       </main>
     </div>
   );
 }
-

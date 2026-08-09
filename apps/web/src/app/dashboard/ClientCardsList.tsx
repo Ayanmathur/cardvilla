@@ -3,6 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { CanvasRenderer } from '@/components/builder/CanvasRenderer';
+import { TemplatePreview } from '@/components/template-preview/TemplatePreview';
 import styles from './dashboard.module.css';
 
 interface ClientCardsListProps {
@@ -28,8 +29,6 @@ export const ClientCardsList: React.FC<ClientCardsListProps> = ({ initialCards }
         const cardsDomain = process.env.NEXT_PUBLIC_CARDS_URL || 'http://localhost:3001';
         const publicCardUrl = `${cardsDomain}/${card.slug}`;
         const componentKey = card.template?.componentKey || card.template?.component_key;
-        const encodedData = encodeURIComponent(JSON.stringify(card.data || {}));
-        const previewUrl = componentKey ? `${cardsDomain}/preview/${componentKey}?data=${encodedData}` : null;
         const qrCodeApiUrl = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(
           publicCardUrl
         )}`;
@@ -38,18 +37,11 @@ export const ClientCardsList: React.FC<ClientCardsListProps> = ({ initialCards }
           <div key={card.id} className={styles.cardItem}>
             {/* Real-time Component / Canvas Preview */}
             <div className={styles.canvasPreviewBox} style={{ overflow: 'hidden', position: 'relative' }}>
-              {previewUrl ? (
-                <iframe
-                  src={previewUrl}
-                  style={{
-                    width: '100%',
-                    height: '100%',
-                    border: 'none',
-                    pointerEvents: 'none',
-                    transform: 'scale(0.85)',
-                    transformOrigin: 'top center',
-                  }}
-                  title="Card Preview"
+              {componentKey ? (
+                <TemplatePreview
+                  componentKey={componentKey}
+                  data={card.data || {}}
+                  scale={0.48}
                 />
               ) : (
                 <CanvasRenderer
