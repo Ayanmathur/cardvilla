@@ -65,32 +65,53 @@ async function runMigration() {
 async function seedTemplates() {
   console.log('🌱 Step 2: Seeding templates...\n');
 
-  // 1. Get or create the "business-card" category
-  let { data: category } = await supabase
-    .from('categories')
-    .select('id')
-    .eq('slug', 'business-card')
-    .single();
+  // Fetch all existing categories from Supabase
+  const { data: existingCategories } = await supabase.from('categories').select('*');
+  const categoryMap = new Map<string, string>();
 
-  if (!category) {
-    console.log('Creating "business-card" category...');
-    const catId = 'cat_' + Math.random().toString(36).substring(2, 11);
-    const { data: newCat, error: catErr } = await supabase.from('categories').insert({
+  (existingCategories || []).forEach((cat: any) => {
+    categoryMap.set(cat.slug, cat.id);
+  });
+
+  // Ensure default fallback category exists
+  if (!categoryMap.has('business-card')) {
+    const catId = 'cat_business_card';
+    await supabase.from('categories').insert({
       id: catId,
       name: 'Business Card',
       slug: 'business-card',
       created_at: new Date().toISOString(),
-    }).select().single();
-    if (catErr) {
-      console.error('❌ Failed to create category:', catErr.message);
-      return;
-    }
-    category = newCat;
+    });
+    categoryMap.set('business-card', catId);
   }
 
-  console.log(`📂 Using category: ${category!.id}\n`);
+  // Ensure Phase 2 categories exist
+  const phase2Cats = [
+    { slug: 'wedding', name: 'Wedding & Pre-Wedding' },
+    { slug: 'baby-kids', name: 'Baby & Kids' },
+    { slug: 'party', name: 'Party & Celebration' },
+    { slug: 'devotional', name: 'Puja / Path & Devotional' },
+    { slug: 'festival', name: 'Festival Wishes' },
+  ];
 
-  // 2. Get admin user ID
+  for (const cat of phase2Cats) {
+    if (!categoryMap.has(cat.slug)) {
+      const catId = `cat_${cat.slug.replace('-', '_')}`;
+      const { data: newCat, error } = await supabase.from('categories').insert({
+        id: catId,
+        name: cat.name,
+        slug: cat.slug,
+        created_at: new Date().toISOString(),
+      }).select().single();
+      if (!error && newCat) {
+        categoryMap.set(cat.slug, newCat.id);
+      }
+    }
+  }
+
+  console.log(`📂 Categories initialized:`, Array.from(categoryMap.entries()));
+
+  // Get admin user ID
   const { data: adminUser } = await supabase
     .from('users')
     .select('id')
@@ -101,7 +122,7 @@ async function seedTemplates() {
   const adminId = adminUser?.id || 'usr_admin001';
   console.log(`👤 Using admin: ${adminId}\n`);
 
-  // 3. Insert templates
+  // Insert templates
   const now = new Date().toISOString();
   let created = 0;
   let skipped = 0;
@@ -120,12 +141,15 @@ async function seedTemplates() {
       continue;
     }
 
+    const catSlug = entry.meta.category || 'business-card';
+    const categoryId = categoryMap.get(catSlug) || categoryMap.get('business-card')!;
+
     const templateId = 'tmpl_' + Math.random().toString(36).substring(2, 11) + Date.now().toString(36);
     
     const { error } = await supabase.from('templates').insert({
       id: templateId,
       name: entry.meta.name,
-      category_id: category!.id,
+      category_id: categoryId,
       canvas_json: null,
       component_key: key,
       config_schema: entry.schema,
@@ -138,7 +162,7 @@ async function seedTemplates() {
     if (error) {
       console.error(`  ❌ ${entry.meta.name} (${key}): ${error.message}`);
     } else {
-      console.log(`  ✅ ${entry.meta.name} (${key}) → ${templateId}`);
+      console.log(`  ✅ ${entry.meta.name} (${key}) [${catSlug}] → ${templateId}`);
       created++;
     }
   }

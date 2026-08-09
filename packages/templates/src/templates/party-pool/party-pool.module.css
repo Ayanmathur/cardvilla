@@ -1,0 +1,75 @@
+.container {
+  --color-bg: #00BCD4;
+  --color-text: #FFFFFF;
+  --color-accent: #FFF176;
+  
+
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.content {
+  flex: 1;
+  padding: 2.5rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.iconBox {
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.headline {
+  font-size: 2.1rem;
+  font-weight: 700;
+  color: var(--color-accent);
+  margin-bottom: 0.5rem;
+  line-height: 1.2;
+}
+
+.subline, .fromName {
+  font-size: 1rem;
+  opacity: 0.85;
+  margin-bottom: 1.5rem;
+}
+
+.fromBiz {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--color-accent);
+  margin-bottom: 1rem;
+}
+
+.details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin-top: 1rem;
+}
+
+.date {
+  font-size: 1.15rem;
+  font-weight: 600;
+}
+
+.time, .venue {
+  font-size: 0.95rem;
+  opacity: 0.9;
+}
+
+.message {
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  font-style: italic;
+  opacity: 0.85;
+}

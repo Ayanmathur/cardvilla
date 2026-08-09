@@ -1,10 +1,9 @@
 import { NextResponse } from 'next/server';
-import { getRegistryMeta } from '@card-villa/templates/src/registry-meta';
+import { registryMeta, RegistryMetaEntry } from '@card-villa/templates/src/registry-meta';
 
 export async function GET() {
   try {
-    const registryMeta = getRegistryMeta();
-    const templates = Object.values(registryMeta).map((entry) => ({
+    const templates = Object.values(registryMeta as Record<string, RegistryMetaEntry>).map((entry) => ({
       componentKey: entry.meta.componentKey,
       name: entry.meta.name,
       description: entry.meta.description,
