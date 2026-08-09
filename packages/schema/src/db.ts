@@ -272,7 +272,75 @@ export const db = {
         timestamp: new Date().toISOString(),
       });
     }
-  }
+  },
+  guestLists: {
+    async findMany(where: { cardInstanceId: string }) {
+      const { data, error } = await supabase.from('guest_lists').select('*').eq('card_instance_id', where.cardInstanceId).order('added_at', { ascending: true });
+      if (error || !data) return [];
+      return data.map(g => ({
+        id: g.id,
+        cardInstanceId: g.card_instance_id,
+        guestName: g.guest_name,
+        guestSlug: g.guest_slug,
+        phone: g.phone,
+        rsvpStatus: g.rsvp_status,
+        notes: g.notes,
+        addedAt: g.added_at,
+      }));
+    },
+    async create(data: { cardInstanceId: string; guestName: string; guestSlug: string; phone?: string; rsvpStatus?: string; notes?: string }) {
+      const id = 'gst_' + Math.random().toString(36).substring(2, 11) + Date.now().toString(36);
+      const insertData = {
+        id,
+        card_instance_id: data.cardInstanceId,
+        guest_name: data.guestName,
+        guest_slug: data.guestSlug,
+        phone: data.phone || null,
+        rsvp_status: data.rsvpStatus || 'invited',
+        notes: data.notes || null,
+        added_at: new Date().toISOString(),
+      };
+      const { data: created, error } = await supabase.from('guest_lists').insert(insertData).select().single();
+      if (error) throw new Error(error.message);
+      return created;
+    },
+    async updateStatus(id: string, rsvpStatus: string) {
+      const { data, error } = await supabase.from('guest_lists').update({ rsvp_status: rsvpStatus }).eq('id', id).select().single();
+      if (error) throw new Error(error.message);
+      return data;
+    }
+  },
+
+  pageViews: {
+    async count(where: { cardInstanceId: string }) {
+      const { count, error } = await supabase.from('page_views').select('*', { count: 'exact', head: true }).eq('card_instance_id', where.cardInstanceId);
+      if (error) return 0;
+      return count || 0;
+    },
+    async record(cardInstanceId: string, isFirstView: boolean = false) {
+      const id = 'pv_' + Math.random().toString(36).substring(2, 11) + Date.now().toString(36);
+      await supabase.from('page_views').insert({
+        id,
+        card_instance_id: cardInstanceId,
+        is_first_view: isFirstView,
+        viewed_at: new Date().toISOString(),
+      });
+    }
+  },
+
+  notifySubscribers: {
+    async create(cardInstanceId: string, phone: string) {
+      const id = 'sub_' + Math.random().toString(36).substring(2, 11) + Date.now().toString(36);
+      const { data, error } = await supabase.from('notify_subscribers').insert({
+        id,
+        card_instance_id: cardInstanceId,
+        phone,
+        subscribed_at: new Date().toISOString(),
+      }).select().single();
+      if (error) throw new Error(error.message);
+      return data;
+    }
+  },
 };
 
 // Mapper helpers to convert DB snake_case to camelCase
@@ -308,6 +376,8 @@ function mapTemplate(row: any) {
     componentKey: row.component_key,
     configSchema: row.config_schema || [],
     status: row.status,
+    collectionName: row.collection_name || null,
+    isTrending: Boolean(row.is_trending),
     createdById: row.created_by,
     createdAt: row.created_at,
     updatedAt: row.updated_at,

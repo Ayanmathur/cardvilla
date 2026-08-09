@@ -1,4 +1,4 @@
-export type ConfigFieldType = 'text' | 'richtext' | 'image' | 'color' | 'toggle' | 'list' | 'phone' | 'whatsapp' | 'address' | 'url' | 'social' | 'date';
+export type ConfigFieldType = 'text' | 'richtext' | 'image' | 'photo' | 'color' | 'toggle' | 'list' | 'phone' | 'whatsapp' | 'address' | 'url' | 'social' | 'date';
 
 export type EditableBy = 'admin_only' | 'client';
 export type FieldScope = 'instance' | 'template';

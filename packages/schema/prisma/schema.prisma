@@ -202,8 +202,66 @@ model CardInstance {
   owner       User       @relation(fields: [ownerUserId], references: [id])
   qrCode      QRCode?
   auditLogs   AuditLog[]
+  guestLists  GuestList[]
+  pageViews   PageView[]
+  notifySubscribers NotifySubscriber[]
 
   @@map("card_instances")
+}
+
+// ─────────────────────────────────────────────────────────
+// GuestList (personalized invitations & RSVP tracking)
+// ─────────────────────────────────────────────────────────
+enum RsvpStatus {
+  invited
+  confirmed
+  declined
+  pending
+}
+
+model GuestList {
+  id             String     @id @default(cuid())
+  cardInstanceId String     @map("card_instance_id")
+  guestName      String     @map("guest_name")
+  guestSlug      String     @map("guest_slug")
+  phone          String?
+  rsvpStatus     RsvpStatus @default(invited) @map("rsvp_status")
+  notes          String?
+  addedAt        DateTime   @default(now()) @map("added_at")
+
+  cardInstance   CardInstance @relation(fields: [cardInstanceId], references: [id], onDelete: Cascade)
+
+  @@unique([cardInstanceId, guestSlug])
+  @@map("guest_lists")
+}
+
+// ─────────────────────────────────────────────────────────
+// PageView (lightweight view/scan counter)
+// ─────────────────────────────────────────────────────────
+model PageView {
+  id             String   @id @default(cuid())
+  cardInstanceId String   @map("card_instance_id")
+  viewedAt       DateTime @default(now()) @map("viewed_at")
+  isFirstView    Boolean  @default(false) @map("is_first_view")
+
+  cardInstance   CardInstance @relation(fields: [cardInstanceId], references: [id], onDelete: Cascade)
+
+  @@map("page_views")
+}
+
+// ─────────────────────────────────────────────────────────
+// NotifySubscriber (living card update notifications)
+// ─────────────────────────────────────────────────────────
+model NotifySubscriber {
+  id             String   @id @default(cuid())
+  cardInstanceId String   @map("card_instance_id")
+  phone          String
+  subscribedAt   DateTime @default(now()) @map("subscribed_at")
+
+  cardInstance   CardInstance @relation(fields: [cardInstanceId], references: [id], onDelete: Cascade)
+
+  @@unique([cardInstanceId, phone])
+  @@map("notify_subscribers")
 }
 
 // ─────────────────────────────────────────────────────────

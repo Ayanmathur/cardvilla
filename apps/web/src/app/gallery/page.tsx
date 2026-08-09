@@ -38,6 +38,8 @@ export default async function PublicGalleryPage({
     name: t.name,
     componentKey: t.componentKey || null,
     categoryName: t.category?.name || 'Business Card',
+    collectionName: t.collectionName || null,
+    isTrending: Boolean(t.isTrending),
     canvasJson: t.canvasJson,
   }));
 

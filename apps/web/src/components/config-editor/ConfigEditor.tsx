@@ -108,6 +108,7 @@ export function ConfigEditor({ configSchema, data, onChange, role, previewCompon
           </label>
         );
       case 'image':
+      case 'photo':
         return (
           <div className={styles.imageUpload}>
             <input
@@ -115,7 +116,7 @@ export function ConfigEditor({ configSchema, data, onChange, role, previewCompon
               className={styles.input}
               value={value}
               onChange={(e) => handleChange(field.key, e.target.value)}
-              placeholder="Image URL"
+              placeholder={field.type === 'photo' ? "Photo URL" : "Image URL"}
             />
             {value && <img src={value} alt="Preview" className={styles.imagePreview} />}
           </div>

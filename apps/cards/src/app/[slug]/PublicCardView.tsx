@@ -3,7 +3,7 @@
 import React, { useRef } from 'react';
 import { CanvasRenderer } from '../../components/CanvasRenderer';
 import { downloadVCard } from '../../lib/vcard';
-import { getTemplate } from '@card-villa/templates';
+import { getTemplate, EnvelopeReveal } from '@card-villa/templates';
 import styles from './PublicCardView.module.css';
 
 interface PublicCardViewProps {
@@ -83,9 +83,11 @@ export const PublicCardView: React.FC<PublicCardViewProps> = ({ card }) => {
     <div className={styles.pageWrapper}>
       <div className={styles.cardContainer}>
         {TemplateComponent ? (
-          <div className={styles.templateWrapper}>
-            <TemplateComponent data={data} />
-          </div>
+          <EnvelopeReveal variant={data.envelope_variant || 'sage'}>
+            <div className={styles.templateWrapper}>
+              <TemplateComponent data={data} />
+            </div>
+          </EnvelopeReveal>
         ) : (
           <div ref={cardRef} className={styles.cardBox}>
             <CanvasRenderer canvasJson={card.template?.canvasJson} data={data} scale={1} />
@@ -94,17 +96,27 @@ export const PublicCardView: React.FC<PublicCardViewProps> = ({ card }) => {
 
         {/* Action Toolbar */}
         <div className={styles.actionBar}>
+          {data.audio_url && (
+            <button 
+              onClick={() => {
+                const audio = new Audio(data.audio_url);
+                audio.play().catch(() => alert('Tap again to play audio cue!'));
+              }} 
+              className={styles.downloadImgBtn}
+              style={{ borderColor: 'var(--cv-gold, #c9a84c)' }}
+            >
+              🔊 Tap to Hear Sound
+            </button>
+          )}
           <button onClick={handleSaveContact} className={styles.vcardBtn}>
             📇 Save Contact (.vcf)
           </button>
           <button onClick={handleShare} className={styles.shareBtn}>
             🔗 Share Card
           </button>
-          {!TemplateComponent && (
-            <button onClick={handleDownloadImage} className={styles.downloadImgBtn}>
-              🖼️ Download Image
-            </button>
-          )}
+          <button onClick={handleDownloadImage} className={styles.downloadImgBtn}>
+            🖨️ Print Card
+          </button>
         </div>
 
         {/* Referral Footer — Section 14.2 */}

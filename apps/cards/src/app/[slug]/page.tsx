@@ -27,6 +27,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       title: `${name} — Digital Business Card`,
       description,
       url: cardUrl,
+      images: [{ url: `${cardUrl}/og.png`, width: 1200, height: 630, alt: name }],
       siteName: 'Card Villa',
       type: 'profile',
       locale: 'en_IN',
@@ -35,6 +36,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       card: 'summary_large_image',
       title: `${name} — Digital Business Card`,
       description,
+      images: [`${cardUrl}/og.png`],
     },
     other: {
       'mobile-web-app-capable': 'yes',

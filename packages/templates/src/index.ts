@@ -3,6 +3,8 @@ export * from './registry';
 export * from './animations';
 export * from './invitation-fields';
 export * from './invitation-layout';
+export * from './components/EnvelopeReveal';
+export * from './components/CenteredTextBlock';
 
 // Auto-generated template registrations
 import './templates/baby-annaprashan';
