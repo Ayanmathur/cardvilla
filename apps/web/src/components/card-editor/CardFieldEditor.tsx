@@ -60,7 +60,7 @@ export const CardFieldEditor: React.FC<CardFieldEditorProps> = ({
     await onSave(data);
   };
 
-  const publicCardUrl = `http://localhost:3001/${slug}`;
+  const publicCardUrl = `${process.env.NEXT_PUBLIC_CARDS_URL || 'http://localhost:3001'}/${slug}`;
 
   return (
     <div className={styles.container}>

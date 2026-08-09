@@ -57,7 +57,7 @@ export default async function PublicGalleryPage({
                   <div className={styles.previewContainer}>
                     {template.componentKey ? (
                       <iframe
-                        src={`http://localhost:3001/preview/${template.componentKey}`}
+                        src={`${process.env.NEXT_PUBLIC_CARDS_URL || 'http://localhost:3001'}/preview/${template.componentKey}`}
                         className={styles.previewIframe}
                         title={`Preview of ${template.name}`}
                         loading="lazy"

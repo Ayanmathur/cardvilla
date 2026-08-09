@@ -127,7 +127,7 @@ export default function AdminCardsPage() {
             </thead>
             <tbody>
               {filteredCards.map((card) => {
-                const publicUrl = `http://localhost:3001/${card.slug}`;
+                const publicUrl = `${process.env.NEXT_PUBLIC_CARDS_URL || 'http://localhost:3001'}/${card.slug}`;
                 const title = card.data?.full_name || card.data?.company_name || 'Business Card';
 
                 return (

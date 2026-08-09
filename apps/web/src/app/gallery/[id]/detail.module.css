@@ -1,8 +1,12 @@
+/* ═══════════════════════════════════════════════════════════
+   Gallery Detail Page — Card Villa Design System
+   ═══════════════════════════════════════════════════════════ */
+
 .container {
   min-height: 85vh;
-  background: var(--color-bg, #0d0f1a);
-  color: var(--color-text, #f8fafc);
-  padding: 3rem 2rem;
+  background: var(--cv-dark-blue);
+  color: var(--cv-off-white);
+  padding: var(--cv-space-12) var(--cv-space-8);
 }
 
 .inner {
@@ -12,22 +16,22 @@
 
 .backLink {
   display: inline-block;
-  color: var(--color-text-muted, #8b8fa3);
+  color: var(--cv-grey-400);
   text-decoration: none;
-  font-size: 0.9rem;
-  margin-bottom: 2rem;
-  transition: color 0.2s ease;
+  font-size: var(--cv-text-sm);
+  margin-bottom: var(--cv-space-8);
+  transition: color var(--cv-duration-fast) var(--cv-ease-default);
 }
 
 .backLink:hover {
-  color: var(--color-accent, #c9a84c);
+  color: var(--cv-gold);
 }
 
 .grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 3rem;
-  align-items: center;
+  gap: var(--cv-space-12);
+  align-items: start;
 }
 
 @media (max-width: 768px) {
@@ -37,10 +41,10 @@
 }
 
 .previewCard {
-  background: #06070c;
-  border: 1px solid var(--color-border, rgba(201, 168, 76, 0.25));
-  border-radius: var(--radius-xl, 20px);
-  padding: 1.5rem;
+  background: var(--cv-grey-900);
+  border: 1px solid rgba(201, 168, 76, 0.2);
+  border-radius: var(--cv-radius-2xl);
+  padding: var(--cv-space-6);
   display: flex;
   justify-content: center;
   align-items: flex-start;
@@ -53,7 +57,7 @@
   width: 375px;
   height: 667px;
   border: none;
-  border-radius: 12px;
+  border-radius: var(--cv-radius-lg);
   pointer-events: none;
   overflow: hidden;
 }
@@ -61,73 +65,82 @@
 .infoBox {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: var(--cv-space-4);
 }
 
 .badge {
   display: inline-block;
   align-self: flex-start;
   background: rgba(201, 168, 76, 0.15);
-  color: var(--color-accent, #c9a84c);
+  color: var(--cv-gold);
   padding: 0.35rem 0.85rem;
-  border-radius: 20px;
-  font-size: 0.85rem;
-  font-weight: 700;
+  border-radius: var(--cv-radius-full);
+  font-size: var(--cv-text-sm);
+  font-weight: var(--cv-font-bold);
 }
 
 .title {
-  font-family: var(--font-primary, Outfit);
-  font-size: 2.2rem;
-  font-weight: 800;
+  font-family: var(--cv-font-primary);
+  font-size: var(--cv-text-4xl);
+  font-weight: var(--cv-font-extrabold);
   margin: 0;
-  color: #ffffff;
+  color: var(--cv-white);
 }
 
 .description {
-  color: var(--color-text-muted, #8b8fa3);
-  font-size: 1rem;
-  line-height: 1.6;
+  color: var(--cv-grey-400);
+  font-size: var(--cv-text-base);
+  line-height: var(--cv-leading-relaxed);
 }
 
 .ctaBox {
-  margin-top: 1.5rem;
-  background: rgba(20, 23, 42, 0.7);
-  border: 1px solid var(--color-border, rgba(201, 168, 76, 0.2));
-  padding: 1.75rem;
-  border-radius: var(--radius-xl, 16px);
+  margin-top: var(--cv-space-6);
+  background: var(--cv-dark-blue-card);
+  border: 1px solid rgba(201, 168, 76, 0.15);
+  padding: var(--cv-space-6);
+  border-radius: var(--cv-radius-xl);
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: var(--cv-space-4);
 }
 
 .ctaHeading {
-  font-size: 1.1rem;
-  color: var(--color-accent, #c9a84c);
+  font-size: var(--cv-text-lg);
+  color: var(--cv-gold);
   margin: 0;
 }
 
 .whatsappBtn {
   background: #25d366;
-  color: #ffffff;
-  padding: 0.875rem 1.5rem;
-  border-radius: var(--radius-md, 8px);
-  font-weight: 700;
+  color: var(--cv-white);
+  padding: 0.875rem var(--cv-space-6);
+  border-radius: var(--cv-radius-md);
+  font-weight: var(--cv-font-bold);
   text-decoration: none;
   text-align: center;
-  transition: transform 0.2s ease;
+  transition: transform var(--cv-duration-fast) var(--cv-ease-default),
+              box-shadow var(--cv-duration-fast) var(--cv-ease-default);
 }
 
 .whatsappBtn:hover {
   transform: translateY(-2px);
   box-shadow: 0 4px 16px rgba(37, 211, 102, 0.4);
+  color: var(--cv-white);
 }
 
 .emailBtn {
-  background: rgba(255, 255, 255, 0.08);
-  color: #f8fafc;
-  padding: 0.75rem 1.5rem;
-  border-radius: var(--radius-md, 8px);
-  font-weight: 600;
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--cv-off-white);
+  padding: 0.75rem var(--cv-space-6);
+  border-radius: var(--cv-radius-md);
+  font-weight: var(--cv-font-semibold);
   text-decoration: none;
   text-align: center;
+  border: 1px solid var(--cv-grey-800);
+  transition: background var(--cv-duration-fast) var(--cv-ease-default);
+}
+
+.emailBtn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--cv-white);
 }
