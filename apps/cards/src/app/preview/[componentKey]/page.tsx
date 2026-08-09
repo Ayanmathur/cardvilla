@@ -1,12 +1,11 @@
 'use client';
 
-import React, { useMemo } from 'react';
+import React, { useMemo, Suspense } from 'react';
 import { getTemplate } from '@card-villa/templates';
 import { useSearchParams } from 'next/navigation';
 import { use } from 'react';
 
-export default function PreviewPage({ params }: { params: Promise<{ componentKey: string }> }) {
-  const { componentKey } = use(params);
+function PreviewContent({ componentKey }: { componentKey: string }) {
   const searchParams = useSearchParams();
   
   const data = useMemo(() => {
@@ -36,5 +35,15 @@ export default function PreviewPage({ params }: { params: Promise<{ componentKey
     <main style={{ minHeight: '100vh', margin: 0, padding: 0 }}>
       <TemplateComponent data={data} isPreview={true} />
     </main>
+  );
+}
+
+export default function PreviewPage({ params }: { params: Promise<{ componentKey: string }> }) {
+  const { componentKey } = use(params);
+
+  return (
+    <Suspense fallback={<div style={{ padding: '2rem', textAlign: 'center', color: '#888' }}>Loading Preview...</div>}>
+      <PreviewContent componentKey={componentKey} />
+    </Suspense>
   );
 }

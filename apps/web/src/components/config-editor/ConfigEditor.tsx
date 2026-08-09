@@ -33,7 +33,18 @@ export function ConfigEditor({ configSchema, data, onChange, role, previewCompon
     onChange(updated);
   };
 
-  const visibleFields = configSchema.filter(field => 
+  const normalizedSchema: ConfigSchemaField[] = (configSchema || []).map((f: any) => ({
+    key: f.key || f.fieldKey,
+    label: f.label || f.key || f.fieldKey,
+    type: f.type || f.fieldType || 'text',
+    editableBy: f.editableBy || 'client',
+    required: f.required ?? false,
+    defaultValue: f.defaultValue,
+    placeholder: f.placeholder,
+    fieldScope: f.fieldScope || 'instance',
+  }));
+
+  const visibleFields = normalizedSchema.filter(field => 
     role === 'admin' ? true : field.editableBy === 'client'
   );
 

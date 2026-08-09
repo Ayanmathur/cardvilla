@@ -58,6 +58,6 @@ export default async function PublicCardPage({
 
   return <PublicCardView card={{
     ...card,
-    component_key: card.template?.componentKey || null,
+    component_key: card.template?.componentKey || (card as any).component_key || null,
   } as any} />;
 }

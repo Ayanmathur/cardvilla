@@ -5,7 +5,10 @@ const registry: Record<string, TemplateRegistryEntry> = {};
 
 // Register function used by each template
 export function registerTemplate(entry: TemplateRegistryEntry) {
-  registry[entry.meta.componentKey] = entry;
+  const key = entry.meta.componentKey;
+  registry[key] = entry;
+  registry[key.replace(/_/g, '-')] = entry;
+  registry[key.replace(/-/g, '_')] = entry;
 }
 
 // Get all registered templates
@@ -15,7 +18,12 @@ export function getRegistry(): Record<string, TemplateRegistryEntry> {
 
 // Get single template by key
 export function getTemplate(componentKey: string): TemplateRegistryEntry | undefined {
-  return registry[componentKey];
+  if (!componentKey) return undefined;
+  return (
+    registry[componentKey] ||
+    registry[componentKey.replace(/-/g, '_')] ||
+    registry[componentKey.replace(/_/g, '-')]
+  );
 }
 
 // List all available component keys

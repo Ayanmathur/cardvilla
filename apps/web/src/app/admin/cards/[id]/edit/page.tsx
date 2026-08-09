@@ -77,14 +77,18 @@ export default function AdminEditCardPage({ params }: { params: Promise<{ id: st
     );
   }
 
+  const componentKey = card.template?.componentKey || card.template?.component_key || 'modern_minimal';
+  const schema = card.template?.configSchema || card.template?.config_schema || card.template?.fieldSchemas || [];
+  const cardsDomain = process.env.NEXT_PUBLIC_CARDS_URL || 'http://localhost:3001';
+
   const encodedData = encodeURIComponent(JSON.stringify(data));
-  const previewUrl = `http://localhost:3001/preview/${card.template?.componentKey}?data=${encodedData}`;
+  const previewUrl = `${cardsDomain}/preview/${componentKey}?data=${encodedData}`;
 
   const previewIframe = (
     <div style={{ display: 'flex', flexDirection: 'column', height: '100%', backgroundColor: 'var(--cv-dark-blue)' }}>
       <div style={{ padding: 'var(--cv-space-4)', borderBottom: '1px solid var(--cv-grey-800)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <span style={{ color: 'var(--cv-grey-400)', fontSize: 'var(--cv-text-sm)' }}>
-          Preview: <span style={{ fontFamily: 'var(--cv-font-mono)', color: 'var(--cv-gold)' }}>{card.template?.componentKey || 'Legacy'}</span>
+          Preview: <span style={{ fontFamily: 'var(--cv-font-mono)', color: 'var(--cv-gold)' }}>{componentKey}</span>
         </span>
         <button 
           onClick={handleSave} 
@@ -115,7 +119,7 @@ export default function AdminEditCardPage({ params }: { params: Promise<{ id: st
   return (
     <div style={{ height: 'calc(100vh - 40px)', padding: 'var(--cv-space-4)' }}>
       <ConfigEditor
-        configSchema={card.template?.fieldSchemas || []}
+        configSchema={schema}
         data={data}
         onChange={setData}
         role="admin"
