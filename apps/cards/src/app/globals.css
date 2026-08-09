@@ -1,12 +1,12 @@
 @import '../styles/design-tokens.css';
 
 :root {
-  --font-primary: 'Outfit', sans-serif;
-  --font-body: 'Inter', sans-serif;
-  --color-bg: #0d0f1a;
-  --color-text: #f0f0f5;
-  --color-text-muted: #8b8fa3;
-  --color-accent: #c9a84c;
+  --font-primary: var(--cv-font-primary);
+  --font-body: var(--cv-font-body);
+  --color-bg: var(--cv-dark-blue);
+  --color-text: var(--cv-white);
+  --color-text-muted: var(--cv-grey-400);
+  --color-accent: var(--cv-magenta-pink);
 }
 
 * {
@@ -17,8 +17,8 @@
 
 html, body {
   font-family: var(--font-body);
-  background: var(--color-bg);
-  color: var(--color-text);
+  background: var(--cv-dark-blue);
+  color: var(--cv-white);
   -webkit-font-smoothing: antialiased;
   min-height: 100vh;
 }

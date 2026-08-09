@@ -2,20 +2,20 @@
 
 :root {
   --font-primary: var(--cv-font-primary);
-  --font-body: 'Inter', sans-serif;
+  --font-body: var(--cv-font-body);
 
   /* Bridge legacy --color-* aliases to canonical --cv-* design tokens */
-  --color-primary: var(--cv-dark-blue-card);
-  --color-primary-light: var(--cv-dark-blue-hover);
-  --color-accent: var(--cv-gold);
-  --color-accent-light: var(--cv-gold-light);
+  --color-primary: var(--cv-dark-blue);
+  --color-primary-light: var(--cv-blue-700);
+  --color-accent: var(--cv-magenta-pink);
+  --color-accent-light: var(--cv-pink);
   --color-bg: var(--cv-dark-blue);
   --color-bg-card: var(--cv-dark-blue-card);
-  --color-bg-elevated: var(--cv-dark-blue-hover);
-  --color-text: var(--cv-off-white);
+  --color-bg-elevated: var(--cv-blue-700);
+  --color-text: var(--cv-white);
   --color-text-muted: var(--cv-grey-400);
-  --color-border: var(--cv-grey-800);
-  --color-success: var(--cv-success);
+  --color-border: rgba(201, 202, 211, 0.2);
+  --color-success: var(--cv-aqua);
   --color-error: var(--cv-error);
   --color-warning: var(--cv-warning);
 
@@ -39,7 +39,7 @@
   --shadow-sm: var(--cv-shadow-sm);
   --shadow-md: var(--cv-shadow-md);
   --shadow-lg: var(--cv-shadow-lg);
-  --shadow-glow: var(--cv-shadow-glow-gold);
+  --shadow-glow: var(--cv-shadow-glow-pink);
 }
 
 * {
@@ -51,8 +51,8 @@
 html,
 body {
   font-family: var(--font-body);
-  background: var(--color-bg);
-  color: var(--color-text);
+  background: var(--cv-dark-blue);
+  color: var(--cv-white);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   min-height: 100vh;
@@ -64,11 +64,11 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 a {
-  color: var(--color-accent);
+  color: var(--cv-light-blue);
   text-decoration: none;
   transition: color 0.2s ease;
 }
 
 a:hover {
-  color: var(--color-accent-light);
+  color: var(--cv-aqua);
 }

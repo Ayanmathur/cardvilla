@@ -1,61 +1,66 @@
 /* ═══════════════════════════════════════════════════════════
-   Card Villa — Design System Tokens
-   Central source of truth for all visual decisions.
-   Consumed by apps/web and apps/cards.
+   Card Villa — Visual Identity & Design System Tokens
+   Defined per Design System & Theme Upgrade Specification
    ═══════════════════════════════════════════════════════════ */
 
 :root {
-  /* ─── Colors ─── */
-  --cv-white: #ffffff;
-  --cv-off-white: #f8fafc;
+  /* ─── Core Neutrals ─── */
+  --cv-white: #FFFFFF;
+  --cv-off-white: #F7F6F8;
+  --cv-grey-100: #EDEDF1;
+  --cv-grey-200: #E2E2E8;
+  --cv-grey-300: #C9CAD3;
+  --cv-grey-400: #A0A1B0;
+  --cv-grey-500: #8B8C99;
+  --cv-grey-600: #686978;
+  --cv-grey-700: #4A4B58;
+  --cv-grey-800: #2C2D3A;
+  --cv-grey-900: #1E1F2A;
 
-  /* Greys */
-  --cv-grey-50: #f9fafb;
-  --cv-grey-100: #f1f5f9;
-  --cv-grey-200: #e2e8f0;
-  --cv-grey-300: #cbd5e1;
-  --cv-grey-400: #94a3b8;
-  --cv-grey-500: #64748b;
-  --cv-grey-600: #475569;
-  --cv-grey-700: #334155;
-  --cv-grey-800: #1e293b;
-  --cv-grey-900: #0f172a;
+  /* ─── Blues (Trust & Structure) ─── */
+  --cv-dark-blue: #0B1F3A;
+  --cv-blue-700: #14345C;
+  --cv-light-blue: #5B8DEF;
+  --cv-aqua: #3FD8D0;
+  --cv-dark-blue-card: #122442;
+  --cv-dark-blue-hover: #14345C;
 
-  /* Brand — Dark */
-  --cv-dark-blue: #0d0f1a;
-  --cv-dark-blue-card: #14172a;
-  --cv-dark-blue-hover: #1a1d35;
+  /* ─── Pinks (Warmth & Action Differentiator) ─── */
+  --cv-magenta-pink: #E63474;
+  --cv-pink: #F26FA0;
+  --cv-light-pink: #FCE1EC;
 
-  /* Brand — Cool */
-  --cv-light-blue: #38bdf8;
-  --cv-aqua: #06b6d4;
-  --cv-aqua-light: #22d3ee;
+  /* ─── Brand Gold (Preserved for Luxury/Devotional motifs) ─── */
+  --cv-gold: #C9A84C;
+  --cv-gold-light: #E5C158;
+  --cv-gold-dark: #A68A3A;
 
-  /* Brand — Gold */
-  --cv-gold: #c9a84c;
-  --cv-gold-light: #e5c158;
-  --cv-gold-dark: #a68a3a;
+  /* ─── Semantic Mapping ─── */
+  --bg-page: var(--cv-off-white);
+  --bg-surface: var(--cv-white);
+  --bg-surface-dark: var(--cv-dark-blue);
+  --text-primary: var(--cv-grey-900);
+  --text-secondary: var(--cv-grey-500);
+  --text-on-dark: var(--cv-white);
+  --border-default: var(--cv-grey-300);
+  --brand-primary: var(--cv-magenta-pink);
+  --brand-primary-hover: var(--cv-pink);
+  --brand-secondary: var(--cv-light-blue);
+  --brand-accent: var(--cv-aqua);
+  --brand-soft: var(--cv-light-pink);
 
-  /* Brand — Pink */
-  --cv-magenta-pink: #ec4899;
-  --cv-pink: #f472b6;
-  --cv-light-pink: #fce7f3;
-
-  /* Semantic */
-  --cv-success: #4ade80;
-  --cv-success-dark: #22c55e;
-  --cv-error: #ef4444;
-  --cv-error-dark: #dc2626;
-  --cv-warning: #f59e0b;
-  --cv-warning-dark: #d97706;
-  --cv-info: #3b82f6;
+  /* Semantic Alerts */
+  --cv-success: #3FD8D0;
+  --cv-error: #E5484D;
+  --cv-warning: #F5A623;
 
   /* ─── Typography ─── */
-  --cv-font-primary: 'Outfit', system-ui, -apple-system, sans-serif;
+  --cv-font-primary: 'Sora', 'General Sans', 'Space Grotesk', 'Outfit', system-ui, -apple-system, sans-serif;
+  --cv-font-body: 'Inter', 'Manrope', system-ui, -apple-system, sans-serif;
   --cv-font-secondary: 'Playfair Display', 'Georgia', serif;
   --cv-font-mono: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
 
-  /* Font Sizes */
+  /* Font Scale (1.25 Modular Ratio) */
   --cv-text-xs: 0.75rem;     /* 12px */
   --cv-text-sm: 0.875rem;    /* 14px */
   --cv-text-base: 1rem;      /* 16px */
@@ -79,7 +84,7 @@
   --cv-font-bold: 700;
   --cv-font-extrabold: 800;
 
-  /* ─── Spacing ─── */
+  /* ─── Spacing (4px Base Unit Scale) ─── */
   --cv-space-0: 0;
   --cv-space-1: 0.25rem;   /* 4px */
   --cv-space-2: 0.5rem;    /* 8px */
@@ -95,47 +100,33 @@
   --cv-space-24: 6rem;     /* 96px */
 
   /* ─── Border Radius ─── */
-  --cv-radius-sm: 4px;
-  --cv-radius-md: 8px;
-  --cv-radius-lg: 12px;
-  --cv-radius-xl: 16px;
+  --cv-radius-sm: 6px;     /* inputs, small buttons, badges */
+  --cv-radius-md: 12px;    /* cards, panels, modals */
+  --cv-radius-lg: 20px;    /* hero sections, large blocks */
+  --cv-radius-xl: 20px;
   --cv-radius-2xl: 24px;
   --cv-radius-full: 9999px;
 
-  /* ─── Shadows ─── */
-  --cv-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-  --cv-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
-  --cv-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
-  --cv-shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+  /* ─── Elevation & Shadows ─── */
+  --cv-shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.06);
+  --cv-shadow-md: 0 8px 24px rgba(0, 0, 0, 0.1);
+  --cv-shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.15);
+  --cv-shadow-glow-pink: 0 0 20px rgba(230, 52, 116, 0.35);
+  --cv-shadow-glow-aqua: 0 0 20px rgba(63, 216, 208, 0.35);
   --cv-shadow-glow-gold: 0 0 20px rgba(201, 168, 76, 0.3);
-  --cv-shadow-glow-pink: 0 0 20px rgba(236, 72, 153, 0.3);
-  --cv-shadow-glow-aqua: 0 0 20px rgba(6, 182, 212, 0.3);
 
   /* ─── Motion ─── */
   --cv-duration-fast: 150ms;
   --cv-duration-normal: 300ms;
   --cv-duration-slow: 600ms;
-  --cv-duration-slower: 1000ms;
-  --cv-duration-slowest: 1500ms;
-
   --cv-ease-default: cubic-bezier(0.4, 0, 0.2, 1);
-  --cv-ease-in: cubic-bezier(0.4, 0, 1, 1);
-  --cv-ease-out: cubic-bezier(0, 0, 0.2, 1);
   --cv-ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
-  --cv-ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
-  --cv-ease-spring: cubic-bezier(0.175, 0.885, 0.32, 1.275);
 
-  /* ─── Z-Index Scale ─── */
+  /* ─── Z-Index ─── */
   --cv-z-base: 0;
   --cv-z-dropdown: 100;
   --cv-z-sticky: 200;
   --cv-z-overlay: 300;
   --cv-z-modal: 400;
   --cv-z-toast: 500;
-
-  /* ─── Breakpoints (reference — use in media queries) ─── */
-  /* Mobile-first: 375px (base), sm: 640px, md: 768px, lg: 1024px, xl: 1280px */
 }
-
-/* ─── Rule: No more than 2 accent colors per screen ─── */
-/* ─── Rule: Magenta-pink (--cv-magenta-pink) reserved for PRIMARY actions only ─── */
