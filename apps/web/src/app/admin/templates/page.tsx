@@ -280,9 +280,22 @@ export default function AdminTemplatesPage() {
         <div className={styles.templateGrid}>
           {filteredTemplates.map((template) => (
             <div key={template.id} className={styles.templateCard}>
-              <div className={styles.previewBox} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: 'var(--cv-dark-blue)' }}>
+              <div className={styles.previewBox}>
                 {template.componentKey ? (
-                  <span style={{ color: 'var(--cv-grey-400)' }}>{template.componentKey} preview</span>
+                  <iframe
+                    src={`${process.env.NEXT_PUBLIC_CARDS_URL || 'http://localhost:3001'}/preview/${template.componentKey}`}
+                    style={{
+                      width: '375px',
+                      height: '640px',
+                      border: 'none',
+                      borderRadius: '8px',
+                      transform: 'scale(0.48)',
+                      transformOrigin: 'top center',
+                      pointerEvents: 'none',
+                    }}
+                    title={`Preview of ${template.name}`}
+                    loading="lazy"
+                  />
                 ) : (
                   <span style={{ color: 'var(--cv-grey-400)' }}>Legacy Canvas</span>
                 )}

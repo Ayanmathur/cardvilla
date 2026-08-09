@@ -35,9 +35,18 @@ export default async function TemplateDetailPage({
         </Link>
 
         <div className={styles.grid}>
-          {/* Large Canvas Preview */}
+          {/* Large Preview */}
           <div className={styles.previewCard}>
-            <CanvasRenderer canvasJson={template.canvasJson} scale={0.9} />
+            {template.componentKey ? (
+              <iframe
+                src={`${process.env.NEXT_PUBLIC_CARDS_URL || 'http://localhost:3001'}/preview/${template.componentKey}`}
+                className={styles.previewIframe}
+                title={`Preview of ${template.name}`}
+                loading="lazy"
+              />
+            ) : (
+              <CanvasRenderer canvasJson={template.canvasJson} scale={0.9} />
+            )}
           </div>
 
           {/* Details & CTA */}

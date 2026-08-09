@@ -40,11 +40,22 @@
   background: #06070c;
   border: 1px solid var(--color-border, rgba(201, 168, 76, 0.25));
   border-radius: var(--radius-xl, 20px);
-  padding: 2.5rem;
+  padding: 1.5rem;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+  min-height: 500px;
+  overflow: hidden;
+}
+
+.previewIframe {
+  width: 375px;
+  height: 667px;
+  border: none;
+  border-radius: 12px;
+  pointer-events: none;
+  overflow: hidden;
 }
 
 .infoBox {
