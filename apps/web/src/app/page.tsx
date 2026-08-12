@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { db } from '@card-villa/schema';
 import { CanvasRenderer } from '@/components/builder/CanvasRenderer';
+import { TemplatePreview } from '@/components/template-preview/TemplatePreview';
 import styles from './home.module.css';
 
 export const dynamic = 'force-dynamic';
@@ -78,32 +79,38 @@ export default async function HomePage() {
       </section>
 
       {/* Live Featured Templates */}
-      {sampleTemplates.length > 0 && (
-        <section className={styles.templatesSection}>
-          <div className={styles.sectionHeader}>
-            <h2 className={styles.sectionTitle}>Featured Card Designs</h2>
-            <Link href="/gallery" className={styles.viewAllLink}>
-              View All Templates →
-            </Link>
-          </div>
+      <section className={styles.templatesSection}>
+        <div className={styles.sectionHeader}>
+          <h2 className={styles.sectionTitle}>Featured Card & Invitation Designs</h2>
+          <Link href="/gallery" className={styles.viewAllLink}>
+            Explore All 76 Templates →
+          </Link>
+        </div>
 
-          <div className={styles.templatesGrid}>
-            {sampleTemplates.map((tmpl) => (
-              <div key={tmpl.id} className={styles.templateBox}>
-                <div className={styles.canvasWrapper}>
-                  <CanvasRenderer canvasJson={tmpl.canvasJson} scale={0.46} />
-                </div>
-                <div className={styles.templateMeta}>
-                  <h4>{tmpl.name}</h4>
-                  <Link href={`/gallery/${tmpl.id}`} className={styles.detailsBtn}>
-                    Preview Design →
-                  </Link>
-                </div>
+        <div className={styles.templatesGrid}>
+          {[
+            { id: 'wedding_hindu_mandap', name: 'Hindu Wedding — Mandap', category: 'Wedding Suite' },
+            { id: 'shutter_moment', name: 'Shutter Moment', category: 'Photographer / Studio' },
+            { id: 'party_cocktail', name: 'Cocktail & Glam Party', category: 'Party & Celebration' },
+            { id: 'festival_diwali', name: 'Diwali Wishes', category: 'Festival Celebration' },
+            { id: 'baby_shower', name: 'Baby Shower', category: 'Baby & Kids' },
+            { id: 'devotional_griha_pravesh', name: 'Griha Pravesh & Puja', category: 'Devotional / Sacred' },
+          ].map((tmpl) => (
+            <div key={tmpl.id} className={styles.templateBox}>
+              <div className={styles.canvasWrapper}>
+                <TemplatePreview componentKey={tmpl.id} scale={0.46} />
               </div>
-            ))}
-          </div>
-        </section>
-      )}
+              <div className={styles.templateMeta}>
+                <h4>{tmpl.name}</h4>
+                <span style={{ fontSize: '11px', color: 'var(--cv-gold)', display: 'block', marginBottom: '8px' }}>{tmpl.category}</span>
+                <Link href={`/gallery/${tmpl.id}`} className={styles.detailsBtn}>
+                  Preview Design →
+                </Link>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
 
       {/* Bottom CTA Banner */}
       <section className={styles.banner}>
