@@ -1,7 +1,6 @@
 import { ConfigSchema } from '../../types';
-import { babyKidsFields, invitationCTAFields } from '../../invitation-fields';
+import { babyKidsFields, babyKidsSectionedSchema } from '../../invitation-fields';
+import type { SectionedConfigSchema } from '../../types';
 
-export const babyAnnaprashanSchema: ConfigSchema = [
-  ...babyKidsFields,
-  ...invitationCTAFields,
-];
+export const babyAnnaprashanSchema: ConfigSchema = [...babyKidsFields];
+export const babyAnnaprashanSectionedSchema: SectionedConfigSchema = babyKidsSectionedSchema;

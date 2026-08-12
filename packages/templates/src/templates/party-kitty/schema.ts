@@ -1,7 +1,6 @@
 import { ConfigSchema } from '../../types';
-import { partyFields, invitationCTAFields } from '../../invitation-fields';
+import { partyFields, partySectionedSchema } from '../../invitation-fields';
+import type { SectionedConfigSchema } from '../../types';
 
-export const partyKittySchema: ConfigSchema = [
-  ...partyFields,
-  ...invitationCTAFields,
-];
+export const partyKittySchema: ConfigSchema = [...partyFields];
+export const partyKittySectionedSchema: SectionedConfigSchema = partySectionedSchema;

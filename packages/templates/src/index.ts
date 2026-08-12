@@ -5,6 +5,15 @@ export * from './invitation-fields';
 export * from './invitation-layout';
 export * from './components/EnvelopeReveal';
 export * from './components/CenteredTextBlock';
+export * from './components/ScrollLayout';
+export * from './sections/HeroSection';
+export * from './sections/StorySection';
+export * from './sections/ScheduleSection';
+export * from './sections/VenueSection';
+export * from './sections/GallerySection';
+export * from './sections/RsvpSection';
+export * from './sections/CountdownSection';
+export * from './sections/ClosingSection';
 
 // Auto-generated template registrations
 import './templates/baby-annaprashan';

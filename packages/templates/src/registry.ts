@@ -26,6 +26,19 @@ export function getTemplate(componentKey: string): TemplateRegistryEntry | undef
   );
 }
 
+// List all unique template entries
+export function getAllTemplates(): TemplateRegistryEntry[] {
+  const seen = new Set<string>();
+  const entries: TemplateRegistryEntry[] = [];
+  for (const entry of Object.values(registry)) {
+    if (!seen.has(entry.meta.componentKey)) {
+      seen.add(entry.meta.componentKey);
+      entries.push(entry);
+    }
+  }
+  return entries;
+}
+
 // List all available component keys
 export function getComponentKeys(): string[] {
   return Object.keys(registry);

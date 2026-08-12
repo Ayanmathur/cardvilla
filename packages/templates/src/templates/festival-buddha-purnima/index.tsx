@@ -2,31 +2,29 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { TemplateProps, TemplateMeta } from '../../types';
 import { registerTemplate } from '../../registry';
+import { ScrollLayout } from '../../components/ScrollLayout';
+import { HeroSection } from '../../sections/HeroSection';
+import { ClosingSection } from '../../sections/ClosingSection';
 import { bloomVariants, slideUpVariants } from '../../animations';
-import { InvitationLayout, formatEventDate } from '../../invitation-layout';
-import { festivalBuddhaPurnimaSchema } from './schema';
+import { festivalBuddhaPurnimaSchema, festivalBuddhaPurnimaSectionedSchema } from './schema';
 import styles from './festival-buddha-purnima.module.css';
 
 const FestivalBuddhaPurnima: React.FC<TemplateProps> = ({ data }) => {
-  return (
-    <InvitationLayout data={data} className={styles.container}>
-      <div className={styles.content}>
-        <motion.div className={styles.iconBox} custom={1} variants={slideUpVariants} initial="hidden" animate="visible">
-          <motion.svg custom={1} variants={bloomVariants} initial="hidden" animate="visible" viewBox="0 0 100 80" width="80" height="64" fill="var(--color-accent)">
+  const motif = (
+    <div className={styles.motif}>
+      <motion.svg custom={1} variants={bloomVariants} initial="hidden" animate="visible" viewBox="0 0 100 80" width="80" height="64" fill="var(--color-accent)">
         <circle cx="50" cy="40" r="15" />
         <circle cx="35" cy="40" r="10" />
         <circle cx="65" cy="40" r="10" />
       </motion.svg>
-        </motion.div>
-        
-        <h1 className={styles.headline}>{data.greeting_line || "Happy Buddha Purnima!"}</h1>
-        <p className={styles.fromName}>{data.from_name || 'With Best Compliments'}</p>
-        {data.from_business && <p className={styles.fromBiz}>{data.from_business}</p>}
-        <div className={styles.details}>
-          {data.message && <p className={styles.message} dangerouslySetInnerHTML={{ __html: data.message }}></p>}
-        </div>
-      </div>
-    </InvitationLayout>
+    </div>
+  );
+
+  return (
+    <ScrollLayout data={data} className={styles.container} accentColor="var(--color-accent)" showActions={!!data.phone || !!data.whatsapp}>
+      <HeroSection data={data} accentColor="var(--color-accent)" textColor="var(--color-text)" motifSlot={motif} />
+      <ClosingSection data={data} accentColor="var(--color-accent)" />
+    </ScrollLayout>
   );
 };
 
@@ -37,11 +35,13 @@ export const meta: TemplateMeta = {
   category: "festival",
   motionTier: 1,
   styleTone: "Serene/Peaceful",
+  sections: ["hero", "closing"],
 };
 
 registerTemplate({
   component: FestivalBuddhaPurnima,
   schema: festivalBuddhaPurnimaSchema,
+  sectionedSchema: festivalBuddhaPurnimaSectionedSchema,
   meta,
 });
 

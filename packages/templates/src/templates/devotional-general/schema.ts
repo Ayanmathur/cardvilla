@@ -1,7 +1,5 @@
-import { ConfigSchema } from '../../types';
-import { devotionalFields, invitationCTAFields } from '../../invitation-fields';
+import { ConfigSchema, SectionedConfigSchema } from '../../types';
+import { devotionalFields, devotionalSectionedSchema } from '../../invitation-fields';
 
-export const devotionalGeneralSchema: ConfigSchema = [
-  ...devotionalFields,
-  ...invitationCTAFields,
-];
+export const devotionalGeneralSchema: ConfigSchema = [...devotionalFields];
+export const devotionalGeneralSectionedSchema: SectionedConfigSchema = devotionalSectionedSchema;

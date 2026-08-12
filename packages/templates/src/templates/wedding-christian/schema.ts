@@ -1,7 +1,6 @@
 import { ConfigSchema } from '../../types';
-import { weddingFields, invitationCTAFields } from '../../invitation-fields';
+import { weddingFields, weddingSectionedSchema } from '../../invitation-fields';
+import type { SectionedConfigSchema } from '../../types';
 
-export const weddingChristianSchema: ConfigSchema = [
-  ...weddingFields,
-  ...invitationCTAFields,
-];
+export const weddingChristianSchema: ConfigSchema = [...weddingFields];
+export const weddingChristianSectionedSchema: SectionedConfigSchema = weddingSectionedSchema;

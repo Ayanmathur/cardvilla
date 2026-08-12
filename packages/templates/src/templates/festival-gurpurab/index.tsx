@@ -2,29 +2,27 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { TemplateProps, TemplateMeta } from '../../types';
 import { registerTemplate } from '../../registry';
+import { ScrollLayout } from '../../components/ScrollLayout';
+import { HeroSection } from '../../sections/HeroSection';
+import { ClosingSection } from '../../sections/ClosingSection';
 import { flameGlowVariants, slideUpVariants } from '../../animations';
-import { InvitationLayout, formatEventDate } from '../../invitation-layout';
-import { festivalGurpurabSchema } from './schema';
+import { festivalGurpurabSchema, festivalGurpurabSectionedSchema } from './schema';
 import styles from './festival-gurpurab.module.css';
 
 const FestivalGurpurab: React.FC<TemplateProps> = ({ data }) => {
-  return (
-    <InvitationLayout data={data} className={styles.container}>
-      <div className={styles.content}>
-        <motion.div className={styles.iconBox} custom={1} variants={slideUpVariants} initial="hidden" animate="visible">
-          <svg viewBox="0 0 100 100" width="70" height="70" fill="var(--color-accent)">
+  const motif = (
+    <div className={styles.motif}>
+      <svg viewBox="0 0 100 100" width="70" height="70" fill="var(--color-accent)">
         <text x="50" y="65" fontSize="45" textAnchor="middle" fontFamily="serif" fontWeight="bold">ੴ</text>
       </svg>
-        </motion.div>
-        
-        <h1 className={styles.headline}>{data.greeting_line || "Happy Gurpurab!"}</h1>
-        <p className={styles.fromName}>{data.from_name || 'With Best Compliments'}</p>
-        {data.from_business && <p className={styles.fromBiz}>{data.from_business}</p>}
-        <div className={styles.details}>
-          {data.message && <p className={styles.message} dangerouslySetInnerHTML={{ __html: data.message }}></p>}
-        </div>
-      </div>
-    </InvitationLayout>
+    </div>
+  );
+
+  return (
+    <ScrollLayout data={data} className={styles.container} accentColor="var(--color-accent)" showActions={!!data.phone || !!data.whatsapp}>
+      <HeroSection data={data} accentColor="var(--color-accent)" textColor="var(--color-text)" motifSlot={motif} />
+      <ClosingSection data={data} accentColor="var(--color-accent)" />
+    </ScrollLayout>
   );
 };
 
@@ -35,11 +33,13 @@ export const meta: TemplateMeta = {
   category: "festival",
   motionTier: 1,
   styleTone: "Sacred/Golden",
+  sections: ["hero", "closing"],
 };
 
 registerTemplate({
   component: FestivalGurpurab,
   schema: festivalGurpurabSchema,
+  sectionedSchema: festivalGurpurabSectionedSchema,
   meta,
 });
 

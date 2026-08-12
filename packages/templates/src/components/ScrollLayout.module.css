@@ -1,0 +1,80 @@
+/* ScrollLayout — Scrollable multi-section website layout (Section 8.9) */
+
+.scrollContainer {
+  width: 100%;
+  max-width: 430px;
+  margin: 0 auto;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+}
+
+.scrollContent {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  /* NO justify-content: center — content flows naturally top-to-bottom */
+  padding-bottom: 72px; /* space for sticky action bar */
+}
+
+/* Sticky action bar at bottom of viewport */
+.stickyActionBar {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 430px;
+  display: flex;
+  gap: 6px;
+  padding: 10px 12px;
+  padding-bottom: max(10px, env(safe-area-inset-bottom));
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  z-index: 50;
+  box-sizing: border-box;
+}
+
+.actionBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  flex: 1;
+  padding: 10px 6px;
+  border-radius: 8px;
+  border: none;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #fff;
+  text-decoration: none;
+  cursor: pointer;
+  transition: opacity 0.2s ease, transform 0.15s ease;
+  white-space: nowrap;
+  min-width: 0;
+}
+
+.actionBtn:active {
+  transform: scale(0.96);
+  opacity: 0.85;
+}
+
+.actionBtn span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Responsive: on very small screens, hide text labels */
+@media (max-width: 340px) {
+  .actionBtn span {
+    display: none;
+  }
+  .actionBtn {
+    padding: 10px;
+  }
+}

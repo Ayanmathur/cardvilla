@@ -13,11 +13,16 @@ export interface ConfigSchemaField {
 }
 
 export interface ConfigEditorProps {
-  configSchema: ConfigSchemaField[];
+  configSchema: any[];
   data: Record<string, any>;
   onChange: (data: Record<string, any>) => void;
   role: 'admin' | 'client';
   previewComponent?: React.ReactNode;
+}
+
+interface NormalizedSection {
+  title: string;
+  fields: ConfigSchemaField[];
 }
 
 export function ConfigEditor({ configSchema, data, onChange, role, previewComponent }: ConfigEditorProps) {
@@ -33,20 +38,41 @@ export function ConfigEditor({ configSchema, data, onChange, role, previewCompon
     onChange(updated);
   };
 
-  const normalizedSchema: ConfigSchemaField[] = (configSchema || []).map((f: any) => ({
-    key: f.key || f.fieldKey,
-    label: f.label || f.key || f.fieldKey,
-    type: f.type || f.fieldType || 'text',
-    editableBy: f.editableBy || 'client',
-    required: f.required ?? false,
-    defaultValue: f.defaultValue,
-    placeholder: f.placeholder,
-    fieldScope: f.fieldScope || 'instance',
-  }));
+  // Detect whether configSchema is an array of sections or flat fields
+  const sections: NormalizedSection[] = React.useMemo(() => {
+    if (!Array.isArray(configSchema)) return [];
 
-  const visibleFields = normalizedSchema.filter(field => 
-    role === 'admin' ? true : field.editableBy === 'client'
-  );
+    const isSectioned = configSchema.length > 0 && Array.isArray(configSchema[0]?.fields);
+
+    if (isSectioned) {
+      return configSchema.map((sec: any) => ({
+        title: sec.label || sec.section || 'Section',
+        fields: (sec.fields || []).map((f: any) => ({
+          key: f.key || f.fieldKey,
+          label: f.label || f.key || f.fieldKey,
+          type: f.type || f.fieldType || 'text',
+          editableBy: f.editableBy || 'client',
+          required: f.required ?? false,
+          defaultValue: f.defaultValue,
+          placeholder: f.placeholder,
+          fieldScope: f.fieldScope || 'instance',
+        })).filter((f: ConfigSchemaField) => role === 'admin' ? true : f.editableBy === 'client')
+      })).filter((sec: NormalizedSection) => sec.fields.length > 0);
+    }
+
+    const flatFields: ConfigSchemaField[] = configSchema.map((f: any) => ({
+      key: f.key || f.fieldKey,
+      label: f.label || f.key || f.fieldKey,
+      type: f.type || f.fieldType || 'text',
+      editableBy: f.editableBy || 'client',
+      required: f.required ?? false,
+      defaultValue: f.defaultValue,
+      placeholder: f.placeholder,
+      fieldScope: f.fieldScope || 'instance',
+    })).filter((f: ConfigSchemaField) => role === 'admin' ? true : f.editableBy === 'client');
+
+    return flatFields.length > 0 ? [{ title: 'General Fields', fields: flatFields }] : [];
+  }, [configSchema, role]);
 
   const renderField = (field: ConfigSchemaField) => {
     const value = formData[field.key] ?? field.defaultValue ?? '';
@@ -151,42 +177,64 @@ export function ConfigEditor({ configSchema, data, onChange, role, previewCompon
           <span className={styles.roleBadge}>{role} mode</span>
         </div>
         <div className={styles.fields}>
-          {visibleFields.map(field => (
-            <div key={field.key} className={styles.fieldGroup}>
-              <div className={styles.labelRow}>
-                <label className={styles.label}>
-                  {field.label}
-                  {field.required && <span className={styles.required}>*</span>}
-                </label>
-                <div className={styles.meta}>
-                  {field.fieldScope && <span className={styles.badge}>{field.fieldScope}</span>}
-                  {field.editableBy === 'admin_only' && <span className={styles.badgeAdmin}>Admin</span>}
+          {sections.map((section, sIdx) => (
+            <div key={sIdx} className={styles.sectionBlock}>
+              {sections.length > 1 && (
+                <div style={{
+                  padding: '8px 12px',
+                  backgroundColor: 'rgba(201, 168, 76, 0.1)',
+                  borderRadius: '6px',
+                  borderLeft: '3px solid var(--cv-gold, #c9a84c)',
+                  marginBottom: '12px',
+                  fontSize: '0.85rem',
+                  fontWeight: 600,
+                  color: 'var(--cv-gold, #c9a84c)',
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.05em'
+                }}>
+                  {section.title}
                 </div>
+              )}
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', marginBottom: sections.length > 1 ? '1.5rem' : '0' }}>
+                {section.fields.map(field => (
+                  <div key={field.key} className={styles.fieldGroup}>
+                    <div className={styles.labelRow}>
+                      <label className={styles.label}>
+                        {field.label}
+                        {field.required && <span className={styles.required}>*</span>}
+                      </label>
+                      <div className={styles.meta}>
+                        {field.fieldScope && <span className={styles.badge}>{field.fieldScope}</span>}
+                        {field.editableBy === 'admin_only' && <span className={styles.badgeAdmin}>Admin</span>}
+                      </div>
+                    </div>
+                    {renderField(field)}
+                    {field.type === 'phone' && formData[field.key] && (
+                      <a href={`tel:${formData[field.key]}`} className={styles.previewLink} target="_blank" rel="noreferrer">
+                        Test Call ↗
+                      </a>
+                    )}
+                    {field.type === 'whatsapp' && formData[field.key] && (
+                      <a href={`https://wa.me/${String(formData[field.key]).replace(/\D/g, '')}`} className={styles.previewLink} target="_blank" rel="noreferrer">
+                        Test WhatsApp ↗
+                      </a>
+                    )}
+                    {field.type === 'address' && formData[field.key] && (
+                      <a href={`https://maps.google.com/?q=${encodeURIComponent(formData[field.key])}`} className={styles.previewLink} target="_blank" rel="noreferrer">
+                        View on Maps ↗
+                      </a>
+                    )}
+                    {field.type === 'url' && formData[field.key] && (
+                      <a href={formData[field.key]} className={styles.previewLink} target="_blank" rel="noreferrer">
+                        Test Link ↗
+                      </a>
+                    )}
+                  </div>
+                ))}
               </div>
-              {renderField(field)}
-              {field.type === 'phone' && formData[field.key] && (
-                <a href={`tel:${formData[field.key]}`} className={styles.previewLink} target="_blank" rel="noreferrer">
-                  Test Call ↗
-                </a>
-              )}
-              {field.type === 'whatsapp' && formData[field.key] && (
-                <a href={`https://wa.me/${String(formData[field.key]).replace(/\D/g, '')}`} className={styles.previewLink} target="_blank" rel="noreferrer">
-                  Test WhatsApp ↗
-                </a>
-              )}
-              {field.type === 'address' && formData[field.key] && (
-                <a href={`https://maps.google.com/?q=${encodeURIComponent(formData[field.key])}`} className={styles.previewLink} target="_blank" rel="noreferrer">
-                  View on Maps ↗
-                </a>
-              )}
-              {field.type === 'url' && formData[field.key] && (
-                <a href={formData[field.key]} className={styles.previewLink} target="_blank" rel="noreferrer">
-                  Test Link ↗
-                </a>
-              )}
             </div>
           ))}
-          {visibleFields.length === 0 && (
+          {sections.length === 0 && (
             <p className={styles.emptyMessage}>No editable fields available.</p>
           )}
         </div>

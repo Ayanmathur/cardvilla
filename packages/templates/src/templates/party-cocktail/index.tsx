@@ -2,31 +2,33 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { TemplateProps, TemplateMeta } from '../../types';
 import { registerTemplate } from '../../registry';
+import { ScrollLayout } from '../../components/ScrollLayout';
+import { HeroSection } from '../../sections/HeroSection';
+import { ScheduleSection } from '../../sections/ScheduleSection';
+import { VenueSection } from '../../sections/VenueSection';
+import { RsvpSection } from '../../sections/RsvpSection';
+import { ClosingSection } from '../../sections/ClosingSection';
 import { steamWispVariants, slideUpVariants } from '../../animations';
-import { InvitationLayout, formatEventDate } from '../../invitation-layout';
-import { partyCocktailSchema } from './schema';
+import { partyCocktailSchema, partyCocktailSectionedSchema } from './schema';
 import styles from './party-cocktail.module.css';
 
 const PartyCocktail: React.FC<TemplateProps> = ({ data }) => {
-  return (
-    <InvitationLayout data={data} className={styles.container}>
-      <div className={styles.content}>
-        <motion.div className={styles.iconBox} custom={1} variants={slideUpVariants} initial="hidden" animate="visible">
-          <svg viewBox="0 0 100 100" width="70" height="70" stroke="var(--color-accent)" fill="none" strokeWidth="2">
+  const motif = (<div className={styles.motif}><svg viewBox="0 0 100 100" width="70" height="70" stroke="var(--color-accent)" fill="none" strokeWidth="2">
         <path d="M20 20 L80 20 L50 60 L50 90 M30 90 L70 90" />
-      </svg>
-        </motion.div>
-        
-        <h1 className={styles.headline}>{data.event_title || "Cocktails & Celebration"}</h1>
-        <p className={styles.subline}>Join Us for Drinks & Music</p>
-        <div className={styles.details}>
-          <p className={styles.date}>{formatEventDate(data.event_date || '2027-12-31')}</p>
-          {data.event_time && <p className={styles.time}>{data.event_time}</p>}
-          <p className={styles.venue}>{data.venue_name || 'Grand Event Hall'}</p>
-          {data.message && <p className={styles.message} dangerouslySetInnerHTML={{ __html: data.message }}></p>}
-        </div>
+      </svg></div>);
+
+  return (
+    <ScrollLayout data={data} className={styles.container} accentColor="var(--color-accent)">
+      <HeroSection data={data} accentColor="var(--color-accent)" textColor="var(--color-text)" motifSlot={motif} />
+      <div className={styles.altBg}>
+        <ScheduleSection data={data} accentColor="var(--color-accent)" />
       </div>
-    </InvitationLayout>
+      <VenueSection data={data} accentColor="var(--color-accent)" />
+      <div className={styles.altBg}>
+        <RsvpSection data={data} accentColor="var(--color-accent)" />
+      </div>
+      <ClosingSection data={data} accentColor="var(--color-accent)" />
+    </ScrollLayout>
   );
 };
 
@@ -37,11 +39,13 @@ export const meta: TemplateMeta = {
   category: "party",
   motionTier: 1,
   styleTone: "Glamorous/Dark",
+  sections: ['hero', 'schedule', 'venue', 'rsvp', 'closing']
 };
 
 registerTemplate({
   component: PartyCocktail,
   schema: partyCocktailSchema,
+  sectionedSchema: partyCocktailSectionedSchema,
   meta,
 });
 

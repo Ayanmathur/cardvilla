@@ -1,7 +1,6 @@
 import { ConfigSchema } from '../../types';
-import { festivalFields, invitationCTAFields } from '../../invitation-fields';
+import { festivalFields, festivalSectionedSchema } from '../../invitation-fields';
+import type { SectionedConfigSchema } from '../../types';
 
-export const festivalGurpurabSchema: ConfigSchema = [
-  ...festivalFields,
-  ...invitationCTAFields,
-];
+export const festivalGurpurabSchema: ConfigSchema = [...festivalFields];
+export const festivalGurpurabSectionedSchema: SectionedConfigSchema = festivalSectionedSchema;

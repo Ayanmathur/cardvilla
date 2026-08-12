@@ -2,31 +2,31 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { TemplateProps, TemplateMeta } from '../../types';
 import { registerTemplate } from '../../registry';
+import { ScrollLayout } from '../../components/ScrollLayout';
+import { HeroSection } from '../../sections/HeroSection';
+import { ScheduleSection } from '../../sections/ScheduleSection';
+import { VenueSection } from '../../sections/VenueSection';
+import { RsvpSection } from '../../sections/RsvpSection';
+import { ClosingSection } from '../../sections/ClosingSection';
 import { waveVariants, slideUpVariants } from '../../animations';
-import { InvitationLayout, formatEventDate } from '../../invitation-layout';
-import { partyPoolSchema } from './schema';
+import { partyPoolSchema, partyPoolSectionedSchema } from './schema';
 import styles from './party-pool.module.css';
 
 const PartyPool: React.FC<TemplateProps> = ({ data }) => {
+  const motif = (<div className={styles.motif}><div /></div>);
+
   return (
-    <InvitationLayout data={data} className={styles.container}>
-      <div className={styles.content}>
-        <motion.div className={styles.iconBox} custom={1} variants={slideUpVariants} initial="hidden" animate="visible">
-          <motion.svg custom={1} variants={waveVariants} initial="hidden" animate="animate" viewBox="0 0 100 40" width="80" height="32" stroke="var(--color-accent)" fill="none" strokeWidth="2">
-        <path d="M0 10 Q25 0 50 10 T100 10 M0 25 Q25 15 50 25 T100 25" />
-      </motion.svg>
-        </motion.div>
-        
-        <h1 className={styles.headline}>{data.event_title || "Summer Pool Party"}</h1>
-        <p className={styles.subline}>Splash, Sun & Fun</p>
-        <div className={styles.details}>
-          <p className={styles.date}>{formatEventDate(data.event_date || '2027-12-31')}</p>
-          {data.event_time && <p className={styles.time}>{data.event_time}</p>}
-          <p className={styles.venue}>{data.venue_name || 'Grand Event Hall'}</p>
-          {data.message && <p className={styles.message} dangerouslySetInnerHTML={{ __html: data.message }}></p>}
-        </div>
+    <ScrollLayout data={data} className={styles.container} accentColor="var(--color-accent)">
+      <HeroSection data={data} accentColor="var(--color-accent)" textColor="var(--color-text)" motifSlot={motif} />
+      <div className={styles.altBg}>
+        <ScheduleSection data={data} accentColor="var(--color-accent)" />
       </div>
-    </InvitationLayout>
+      <VenueSection data={data} accentColor="var(--color-accent)" />
+      <div className={styles.altBg}>
+        <RsvpSection data={data} accentColor="var(--color-accent)" />
+      </div>
+      <ClosingSection data={data} accentColor="var(--color-accent)" />
+    </ScrollLayout>
   );
 };
 
@@ -37,11 +37,13 @@ export const meta: TemplateMeta = {
   category: "party",
   motionTier: 1,
   styleTone: "Cool/Vibrant",
+  sections: ['hero', 'schedule', 'venue', 'rsvp', 'closing']
 };
 
 registerTemplate({
   component: PartyPool,
   schema: partyPoolSchema,
+  sectionedSchema: partyPoolSectionedSchema,
   meta,
 });
 

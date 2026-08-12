@@ -1,7 +1,6 @@
 import { ConfigSchema } from '../../types';
-import { festivalFields, invitationCTAFields } from '../../invitation-fields';
+import { festivalFields, festivalSectionedSchema } from '../../invitation-fields';
+import type { SectionedConfigSchema } from '../../types';
 
-export const festivalHoliSchema: ConfigSchema = [
-  ...festivalFields,
-  ...invitationCTAFields,
-];
+export const festivalHoliSchema: ConfigSchema = [...festivalFields];
+export const festivalHoliSectionedSchema: SectionedConfigSchema = festivalSectionedSchema;

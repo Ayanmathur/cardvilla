@@ -2,31 +2,29 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { TemplateProps, TemplateMeta } from '../../types';
 import { registerTemplate } from '../../registry';
+import { ScrollLayout } from '../../components/ScrollLayout';
+import { HeroSection } from '../../sections/HeroSection';
+import { ClosingSection } from '../../sections/ClosingSection';
 import { ribbonTieVariants, slideUpVariants } from '../../animations';
-import { InvitationLayout, formatEventDate } from '../../invitation-layout';
-import { festivalRakhiSchema } from './schema';
+import { festivalRakhiSchema, festivalRakhiSectionedSchema } from './schema';
 import styles from './festival-rakhi.module.css';
 
 const FestivalRakhi: React.FC<TemplateProps> = ({ data }) => {
-  return (
-    <InvitationLayout data={data} className={styles.container}>
-      <div className={styles.content}>
-        <motion.div className={styles.iconBox} custom={1} variants={slideUpVariants} initial="hidden" animate="visible">
-          <svg viewBox="0 0 100 60" width="80" height="48" stroke="var(--color-accent)" fill="none" strokeWidth="2">
+  const motif = (
+    <div className={styles.motif}>
+      <svg viewBox="0 0 100 60" width="80" height="48" stroke="var(--color-accent)" fill="none" strokeWidth="2">
         <circle cx="50" cy="30" r="15" />
         <line x1="0" y1="30" x2="35" y2="30" />
         <line x1="65" y1="30" x2="100" y2="30" />
       </svg>
-        </motion.div>
-        
-        <h1 className={styles.headline}>{data.greeting_line || "Happy Raksha Bandhan!"}</h1>
-        <p className={styles.fromName}>{data.from_name || 'With Best Compliments'}</p>
-        {data.from_business && <p className={styles.fromBiz}>{data.from_business}</p>}
-        <div className={styles.details}>
-          {data.message && <p className={styles.message} dangerouslySetInnerHTML={{ __html: data.message }}></p>}
-        </div>
-      </div>
-    </InvitationLayout>
+    </div>
+  );
+
+  return (
+    <ScrollLayout data={data} className={styles.container} accentColor="var(--color-accent)" showActions={!!data.phone || !!data.whatsapp}>
+      <HeroSection data={data} accentColor="var(--color-accent)" textColor="var(--color-text)" motifSlot={motif} />
+      <ClosingSection data={data} accentColor="var(--color-accent)" />
+    </ScrollLayout>
   );
 };
 
@@ -37,11 +35,13 @@ export const meta: TemplateMeta = {
   category: "festival",
   motionTier: 1,
   styleTone: "Warm/Traditional",
+  sections: ["hero", "closing"],
 };
 
 registerTemplate({
   component: FestivalRakhi,
   schema: festivalRakhiSchema,
+  sectionedSchema: festivalRakhiSectionedSchema,
   meta,
 });
 

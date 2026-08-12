@@ -1,0 +1,434 @@
+/* Shared styles for all section components (Section 8.9) */
+
+/* ── Base section wrapper ── */
+.section {
+  width: 100%;
+  padding: 3rem 1.5rem;
+  box-sizing: border-box;
+  overflow: hidden;
+  position: relative;
+}
+
+.sectionInner {
+  max-width: 380px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* ── HERO section ── */
+.heroSection {
+  min-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 1.5rem;
+}
+
+.heroMotif {
+  margin-bottom: 2rem;
+}
+
+.heroEyebrow {
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  opacity: 0.7;
+  margin-bottom: 0.75rem;
+  font-weight: 500;
+}
+
+.heroHeadline {
+  font-family: 'Playfair Display', 'Georgia', serif;
+  font-size: 2.4rem;
+  font-weight: 700;
+  line-height: 1.15;
+  margin: 0 0 0.5rem;
+}
+
+.heroTagline {
+  font-size: 1rem;
+  font-style: italic;
+  opacity: 0.8;
+  margin-bottom: 1.5rem;
+}
+
+.heroDate {
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+}
+
+.heroVenue {
+  font-size: 0.9rem;
+  opacity: 0.75;
+  margin-top: 0.25rem;
+}
+
+.heroDivider {
+  width: 60px;
+  height: 1px;
+  margin: 1.5rem auto;
+  opacity: 0.3;
+}
+
+.scrollHint {
+  margin-top: 2rem;
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  opacity: 0.4;
+}
+
+/* ── STORY section ── */
+.storySection {
+  padding: 3.5rem 1.5rem;
+}
+
+.storyLabel {
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  opacity: 0.5;
+  margin-bottom: 1.5rem;
+}
+
+.storyText {
+  font-size: 1rem;
+  line-height: 1.75;
+  opacity: 0.9;
+  max-width: 340px;
+  margin: 0 auto;
+}
+
+.storyPhoto {
+  width: 100%;
+  max-width: 300px;
+  margin: 1.5rem auto 0;
+  border-radius: 12px;
+  overflow: hidden;
+  aspect-ratio: 4 / 5;
+}
+
+.storyPhoto img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ── SCHEDULE section ── */
+.scheduleSection {
+  padding: 3rem 1.5rem;
+}
+
+.scheduleLabel {
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  opacity: 0.5;
+  margin-bottom: 2rem;
+}
+
+.timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  position: relative;
+}
+
+.timelineLine {
+  position: absolute;
+  left: 20px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  opacity: 0.15;
+}
+
+.eventCard {
+  display: flex;
+  gap: 1.25rem;
+  padding: 1.25rem 0;
+  position: relative;
+}
+
+.eventDot {
+  width: 12px;
+  height: 12px;
+  min-width: 12px;
+  border-radius: 50%;
+  margin-top: 4px;
+  position: relative;
+  z-index: 2;
+}
+
+.eventDetails {
+  text-align: left;
+  flex: 1;
+}
+
+.eventName {
+  font-family: 'Playfair Display', 'Georgia', serif;
+  font-size: 1.15rem;
+  font-weight: 600;
+  margin-bottom: 0.35rem;
+}
+
+.eventDateTime {
+  font-size: 0.85rem;
+  font-weight: 500;
+  opacity: 0.9;
+  margin-bottom: 0.2rem;
+}
+
+.eventVenue {
+  font-size: 0.82rem;
+  opacity: 0.65;
+}
+
+.eventAddress {
+  font-size: 0.78rem;
+  opacity: 0.5;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 2px;
+}
+
+.eventAddress:hover {
+  opacity: 0.8;
+}
+
+/* ── VENUE section ── */
+.venueSection {
+  padding: 3rem 1.5rem;
+}
+
+.venueLabel {
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  opacity: 0.5;
+  margin-bottom: 1.5rem;
+}
+
+.venueName {
+  font-family: 'Playfair Display', 'Georgia', serif;
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.venueAddress {
+  font-size: 0.9rem;
+  opacity: 0.7;
+  line-height: 1.5;
+  margin-bottom: 1rem;
+}
+
+.venueMapLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-decoration: none;
+  padding: 8px 20px;
+  border-radius: 24px;
+  border: 1px solid currentColor;
+  opacity: 0.8;
+  transition: opacity 0.2s;
+}
+
+.venueMapLink:hover {
+  opacity: 1;
+}
+
+/* ── GALLERY section ── */
+.gallerySection {
+  padding: 3rem 1rem;
+}
+
+.galleryLabel {
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  opacity: 0.5;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.galleryGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+}
+
+.galleryItem {
+  border-radius: 8px;
+  overflow: hidden;
+  aspect-ratio: 1;
+}
+
+.galleryItem:nth-child(3) {
+  grid-column: span 2;
+  aspect-ratio: 2 / 1;
+}
+
+.galleryItem img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ── RSVP section ── */
+.rsvpSection {
+  padding: 3rem 1.5rem;
+}
+
+.rsvpLabel {
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  opacity: 0.5;
+  margin-bottom: 0.75rem;
+}
+
+.rsvpHeadline {
+  font-family: 'Playfair Display', 'Georgia', serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+}
+
+.rsvpBtnGroup {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+}
+
+.rsvpBtn {
+  padding: 12px 28px;
+  border-radius: 28px;
+  border: 2px solid currentColor;
+  background: transparent;
+  color: inherit;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.rsvpBtn:hover {
+  transform: scale(1.05);
+}
+
+.rsvpBtnAccept {
+  border-color: transparent;
+  color: #fff;
+}
+
+.rsvpMessage {
+  margin-top: 1rem;
+  font-size: 0.85rem;
+  opacity: 0.6;
+}
+
+/* ── COUNTDOWN section ── */
+.countdownSection {
+  padding: 2.5rem 1.5rem;
+}
+
+.countdownLabel {
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  opacity: 0.5;
+  margin-bottom: 1.5rem;
+}
+
+.countdownGrid {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+}
+
+.countdownUnit {
+  text-align: center;
+  min-width: 56px;
+}
+
+.countdownNumber {
+  font-family: 'Playfair Display', 'Georgia', serif;
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1;
+  display: block;
+}
+
+.countdownUnitLabel {
+  font-size: 0.6rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  opacity: 0.6;
+  margin-top: 4px;
+  display: block;
+}
+
+.countdownSep {
+  font-size: 1.8rem;
+  font-weight: 300;
+  opacity: 0.3;
+  line-height: 1;
+}
+
+/* ── CLOSING section ── */
+.closingSection {
+  padding: 4rem 1.5rem 5rem;
+  text-align: center;
+}
+
+.closingMessage {
+  font-size: 1rem;
+  font-style: italic;
+  opacity: 0.8;
+  line-height: 1.7;
+  max-width: 320px;
+  margin: 0 auto 1.5rem;
+}
+
+.closingFamilyNames {
+  font-family: 'Playfair Display', 'Georgia', serif;
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.closingSignoff {
+  font-size: 0.8rem;
+  opacity: 0.5;
+  letter-spacing: 0.1em;
+}
+
+.closingDivider {
+  width: 40px;
+  height: 1px;
+  margin: 1.5rem auto;
+  opacity: 0.2;
+}
+
+/* ── Section divider ornament ── */
+.sectionDivider {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 0;
+  opacity: 0.2;
+}
+
+.sectionDivider svg {
+  width: 24px;
+  height: 24px;
+}

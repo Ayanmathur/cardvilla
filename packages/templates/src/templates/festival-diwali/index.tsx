@@ -2,30 +2,28 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { TemplateProps, TemplateMeta } from '../../types';
 import { registerTemplate } from '../../registry';
+import { ScrollLayout } from '../../components/ScrollLayout';
+import { HeroSection } from '../../sections/HeroSection';
+import { ClosingSection } from '../../sections/ClosingSection';
 import { flameFlickerVariants, fireworkBurstVariants, slideUpVariants } from '../../animations';
-import { InvitationLayout, formatEventDate } from '../../invitation-layout';
-import { festivalDiwaliSchema } from './schema';
+import { festivalDiwaliSchema, festivalDiwaliSectionedSchema } from './schema';
 import styles from './festival-diwali.module.css';
 
 const FestivalDiwali: React.FC<TemplateProps> = ({ data }) => {
-  return (
-    <InvitationLayout data={data} className={styles.container}>
-      <div className={styles.content}>
-        <motion.div className={styles.iconBox} custom={1} variants={slideUpVariants} initial="hidden" animate="visible">
-          <svg viewBox="0 0 100 50" width="80" height="40">
+  const motif = (
+    <div className={styles.motif}>
+      <svg viewBox="0 0 100 50" width="80" height="40">
         <path d="M10 25 Q50 50 90 25" stroke="var(--color-accent)" fill="none" strokeWidth="2" />
         <motion.path d="M45 20 Q50 5 55 20 Q50 25 45 20" fill="var(--color-accent)" variants={flameFlickerVariants} initial="idle" animate="idle" />
       </svg>
-        </motion.div>
-        
-        <h1 className={styles.headline}>{data.greeting_line || "Happy & Prosperous Diwali!"}</h1>
-        <p className={styles.fromName}>{data.from_name || 'With Best Compliments'}</p>
-        {data.from_business && <p className={styles.fromBiz}>{data.from_business}</p>}
-        <div className={styles.details}>
-          {data.message && <p className={styles.message} dangerouslySetInnerHTML={{ __html: data.message }}></p>}
-        </div>
-      </div>
-    </InvitationLayout>
+    </div>
+  );
+
+  return (
+    <ScrollLayout data={data} className={styles.container} accentColor="var(--color-accent)" showActions={!!data.phone || !!data.whatsapp}>
+      <HeroSection data={data} accentColor="var(--color-accent)" textColor="var(--color-text)" motifSlot={motif} />
+      <ClosingSection data={data} accentColor="var(--color-accent)" />
+    </ScrollLayout>
   );
 };
 
@@ -36,11 +34,13 @@ export const meta: TemplateMeta = {
   category: "festival",
   motionTier: 2,
   styleTone: "Festive/Golden",
+  sections: ["hero", "closing"],
 };
 
 registerTemplate({
   component: FestivalDiwali,
   schema: festivalDiwaliSchema,
+  sectionedSchema: festivalDiwaliSectionedSchema,
   meta,
 });
 

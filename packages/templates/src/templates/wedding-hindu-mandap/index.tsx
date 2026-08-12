@@ -2,32 +2,46 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { TemplateProps, TemplateMeta } from '../../types';
 import { registerTemplate } from '../../registry';
-import { flameFlickerVariants, petalDriftVariants, slideUpVariants } from '../../animations';
-import { InvitationLayout, formatEventDate } from '../../invitation-layout';
-import { weddingHinduMandapSchema } from './schema';
+import { ScrollLayout } from '../../components/ScrollLayout';
+import { HeroSection } from '../../sections/HeroSection';
+import { StorySection } from '../../sections/StorySection';
+import { ScheduleSection } from '../../sections/ScheduleSection';
+import { VenueSection } from '../../sections/VenueSection';
+import { GallerySection } from '../../sections/GallerySection';
+import { RsvpSection } from '../../sections/RsvpSection';
+import { CountdownSection } from '../../sections/CountdownSection';
+import { ClosingSection } from '../../sections/ClosingSection';
+import { flameFlickerVariants } from '../../animations';
+import { weddingHinduMandapSchema, weddingHinduMandapSectionedSchema } from './schema';
 import styles from './wedding-hindu-mandap.module.css';
 
 const WeddingHinduMandap: React.FC<TemplateProps> = ({ data }) => {
-  return (
-    <InvitationLayout data={data} className={styles.container}>
-      <div className={styles.content}>
-        <motion.div className={styles.iconBox} custom={1} variants={slideUpVariants} initial="hidden" animate="visible">
-          <svg viewBox="0 0 100 50" width="80" height="40">
+  const motif = (
+    <div className={styles.motif}>
+      <svg viewBox="0 0 100 50" width="80" height="40">
         <path d="M10 25 Q50 50 90 25" stroke="var(--color-accent)" fill="none" strokeWidth="2" />
         <motion.path d="M45 20 Q50 5 55 20 Q50 25 45 20" fill="var(--color-accent)" variants={flameFlickerVariants} initial="idle" animate="idle" />
       </svg>
-        </motion.div>
-        
-        <h1 className={styles.headline}>{data.partner1_name || "Partner 1"} & {data.partner2_name || "Partner 2"}</h1>
-        <p className={styles.subline}>{data.partner1_family} {data.partner1_family && data.partner2_family && "&"} {data.partner2_family}</p>
-        <div className={styles.details}>
-          <p className={styles.date}>{formatEventDate(data.event_date || '2027-12-31')}</p>
-          {data.event_time && <p className={styles.time}>{data.event_time}</p>}
-          <p className={styles.venue}>{data.venue_name || 'Grand Event Venue'}</p>
-          {data.message && <p className={styles.message} dangerouslySetInnerHTML={{ __html: data.message }}></p>}
-        </div>
+    </div>
+  );
+
+  return (
+    <ScrollLayout data={data} className={styles.container} accentColor="var(--color-accent)">
+      <HeroSection data={data} accentColor="var(--color-accent)" textColor="var(--color-text)" motifSlot={motif} />
+      <div className={styles.altBg}>
+        <StorySection data={data} accentColor="var(--color-accent)" />
       </div>
-    </InvitationLayout>
+      <ScheduleSection data={data} accentColor="var(--color-accent)" />
+      <div className={styles.altBg}>
+        <VenueSection data={data} accentColor="var(--color-accent)" />
+      </div>
+      <GallerySection data={data} accentColor="var(--color-accent)" />
+      <div className={styles.altBg}>
+        <RsvpSection data={data} accentColor="var(--color-accent)" />
+      </div>
+      <CountdownSection data={data} accentColor="var(--color-accent)" />
+      <ClosingSection data={data} accentColor="var(--color-accent)" />
+    </ScrollLayout>
   );
 };
 
@@ -38,11 +52,13 @@ export const meta: TemplateMeta = {
   category: "wedding",
   motionTier: 1,
   styleTone: "Traditional/Ornate",
+  sections: ['hero', 'story', 'schedule', 'venue', 'gallery', 'rsvp', 'countdown', 'closing'],
 };
 
 registerTemplate({
   component: WeddingHinduMandap,
   schema: weddingHinduMandapSchema,
+  sectionedSchema: weddingHinduMandapSectionedSchema,
   meta,
 });
 
